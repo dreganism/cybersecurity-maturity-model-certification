@@ -783,10 +783,12 @@
         <h1>CMMC 2.0 Assessment <span>Self-Evaluation Tool</span></h1>
     </div>
     <div class="top-bar-actions">
-        <button onclick="saveAssessment()" title="Save progress to browser">&#128190; Save</button>
+        <button onclick="saveAssessment()" title="Save as JSON file">&#128190; Save</button>
         <button onclick="exportJSON()" title="Export as JSON file">&#128229; Export</button>
         <button onclick="importJSON()" title="Import from JSON file">&#128228; Import</button>
         <button onclick="generateSSP()" title="Generate System Security Plan">&#128196; SSP</button>
+        <button onclick="resetAssessment()" title="Clear all data and start over" style="border-color:#dc2626;">&#128260; Reset</button>
+        <button onclick="logoutAssessment()" title="Save JSON then clear all data" style="border-color:#ca8a04;">&#128682; Logout</button>
     </div>
 </div>
 
@@ -1652,6 +1654,48 @@ function generateSSP() {
     link.click();
     URL.revokeObjectURL(link.href);
     showToast('System Security Plan generated');
+}
+
+// ============================================================
+// RESET & LOGOUT
+// ============================================================
+function clearAllData() {
+    state = {
+        targetLevel: 2,
+        orgInfo: {},
+        responses: {},
+        notes: {},
+        currentPage: 'intro'
+    };
+    localStorage.removeItem('cmmc_assessment');
+
+    // Clear form fields
+    ['orgName','assessorName','cageCode','assessDate','systemName','systemBoundary'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = '';
+    });
+    setDateDefault();
+    selectLevel(2);
+
+    // Rebuild UI
+    buildDomainPages();
+    updateNavIndicators();
+    DOMAINS.forEach((d, i) => updateDomainProgress(i));
+    showPage('intro');
+}
+
+function resetAssessment() {
+    if (!confirm('This will permanently delete all assessment data, responses, and notes.\n\nAre you sure you want to reset?')) return;
+    clearAllData();
+    showToast('Assessment data cleared');
+}
+
+function logoutAssessment() {
+    // Save JSON first, then clear
+    const data = buildAssessmentJSON();
+    downloadJSON(data, 'CMMC_Save');
+    clearAllData();
+    showToast('Assessment saved and data cleared');
 }
 
 // ============================================================
