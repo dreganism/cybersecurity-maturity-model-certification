@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CMMC Compliance & SSP Builder | Free Self-Assessment Tool for Defense Contractors</title>
-    <meta name="description" content="Free CMMC 2.0 self-assessment tool with all 110 NIST 800-171 controls. Track Level 1 and Level 2 compliance, generate System Security Plans (SSP), and prepare for C3PAO assessment. Built for small DoD contractors.">
-    <meta name="keywords" content="CMMC compliance tool, CMMC 2.0 self-assessment, SSP builder, System Security Plan generator, NIST 800-171, defense contractor compliance, CMMC Level 1, CMMC Level 2, SPRS score, C3PAO preparation, DFARS 252.204-7012, CUI protection, FCI safeguarding">
+    <title>CMMC 2.0 Self-Assessment Tool | Free NIST 800-171 Compliance & SPRS Scoring for Defense Contractors</title>
+    <meta name="description" content="Free CMMC 2.0 self-assessment tool with all 110 NIST 800-171 controls. Calculate your SPRS score, track Level 1 and Level 2 compliance by domain, and generate System Security Plans. Built for small DoD contractors.">
+    <meta name="keywords" content="CMMC compliance tool, CMMC 2.0 self-assessment, SSP builder, System Security Plan generator, NIST 800-171, defense contractor compliance, CMMC Level 1, CMMC Level 2, SPRS score calculator, C3PAO preparation, DFARS 252.204-7012, CUI protection, FCI safeguarding">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://cybersecurity-maturity-model-certification.com/index.html">
     <link rel="icon" type="image/x-icon" href="images/favicon.ico">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="CMMC Compliance & SSP Builder | Free Self-Assessment Tool">
-    <meta property="og:description" content="Free CMMC 2.0 self-assessment covering all 110 NIST 800-171 controls. Generate SSPs and track Level 1 & Level 2 compliance for your defense contracts.">
+    <meta property="og:title" content="CMMC 2.0 Self-Assessment Tool | Free SPRS Score Calculator">
+    <meta property="og:description" content="Free CMMC 2.0 self-assessment covering all 110 NIST 800-171 controls. Calculate SPRS scores, track compliance by domain, and generate SSPs for defense contracts.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://cybersecurity-maturity-model-certification.com/index.html">
     <meta property="og:image" content="https://cybersecurity-maturity-model-certification.com/images/cyber-lock.png">
@@ -20,8 +20,8 @@
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="CMMC Compliance & SSP Builder | Free Self-Assessment Tool">
-    <meta name="twitter:description" content="Free CMMC 2.0 self-assessment covering all 110 NIST 800-171 controls. Track compliance and generate System Security Plans.">
+    <meta name="twitter:title" content="CMMC 2.0 Self-Assessment Tool | Free SPRS Score Calculator">
+    <meta name="twitter:description" content="Free CMMC 2.0 self-assessment covering all 110 NIST 800-171 controls. Calculate your SPRS score and track compliance.">
     <meta name="twitter:image" content="https://cybersecurity-maturity-model-certification.com/images/cyber-lock.png">
 
     <!-- Structured Data -->
@@ -29,8 +29,8 @@
     {
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        "name": "CMMC Compliance & SSP Builder",
-        "description": "Free CMMC 2.0 self-assessment tool with all 110 NIST 800-171 controls for defense contractors seeking Level 1 and Level 2 certification.",
+        "name": "CMMC 2.0 Self-Assessment Tool",
+        "description": "Free CMMC 2.0 self-assessment tool with all 110 NIST 800-171 controls, SPRS score calculation, and SSP generation for defense contractors seeking Level 1 and Level 2 certification.",
         "url": "https://cybersecurity-maturity-model-certification.com/index.html",
         "applicationCategory": "SecurityApplication",
         "operatingSystem": "Web Browser",
@@ -46,391 +46,1623 @@
     }
     </script>
     <style>
-        /* Responsive and consistent UI styling */
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; margin: 0; padding: 20px; }
-        .container { max-width: 800px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        h1, h2 { color: #102a43; }
-        
-        /* Tab Navigation styling */
-        .tabs { display: flex; border-bottom: 2px solid #e4e7eb; margin-bottom: 20px; }
-        .tab-btn { background: none; border: none; padding: 10px 20px; cursor: pointer; font-size: 16px; color: #627d98; outline: none; transition: color 0.3s, border-bottom 0.3s; }
-        .tab-btn:hover { color: #102a43; }
-        .tab-btn.active { color: #102a43; border-bottom: 3px solid #1976d2; font-weight: bold; }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
+        :root {
+            --navy: #0a1628;
+            --navy-light: #132240;
+            --navy-mid: #1a2d4d;
+            --blue: #2563eb;
+            --blue-light: #3b82f6;
+            --blue-pale: #dbeafe;
+            --green: #16a34a;
+            --green-light: #4ade80;
+            --green-pale: #dcfce7;
+            --yellow: #ca8a04;
+            --yellow-pale: #fef9c3;
+            --red: #dc2626;
+            --red-pale: #fee2e2;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-400: #94a3b8;
+            --gray-500: #64748b;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1e293b;
+            --gray-900: #0f172a;
+            --sidebar-width: 280px;
+        }
 
-        /* Form styling */
-        .form-group { margin-bottom: 15px; }
-        label { display: block; font-weight: bold; margin-bottom: 5px; }
-        input[type="text"], textarea { width: 100%; padding: 10px; border: 1px solid #bcccdc; border-radius: 4px; box-sizing: border-box; }
-        
-        /* Checklist styling */
-        .control-item { display: flex; align-items: flex-start; padding: 12px; border-bottom: 1px solid #e4e7eb; }
-        .control-item input[type="checkbox"] { margin-right: 15px; margin-top: 5px; transform: scale(1.3); cursor: pointer; }
-        
-        /* Button styling */
-        .btn { background-color: #1976d2; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-size: 16px; margin-top: 10px; }
-        .btn:hover { background-color: #115293; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--gray-100);
+            color: var(--gray-800);
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* ===== TOP HEADER BAR ===== */
+        .top-bar {
+            background: var(--navy);
+            color: white;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 100;
+            border-bottom: 3px solid var(--blue);
+        }
+        .top-bar-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .top-bar-logo {
+            height: 32px;
+            width: auto;
+        }
+        .top-bar h1 {
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        .top-bar h1 span {
+            color: var(--blue-light);
+            font-weight: 400;
+            font-size: 14px;
+            margin-left: 8px;
+        }
+        .top-bar-actions {
+            display: flex;
+            gap: 8px;
+        }
+        .top-bar-actions button {
+            background: var(--navy-light);
+            color: white;
+            border: 1px solid var(--navy-mid);
+            padding: 6px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.2s;
+        }
+        .top-bar-actions button:hover {
+            background: var(--navy-mid);
+        }
+
+        /* ===== MAIN LAYOUT ===== */
+        .app-layout {
+            display: flex;
+            height: calc(100vh - 56px);
+        }
+
+        /* ===== LEFT SIDEBAR NAVIGATION ===== */
+        .sidebar {
+            width: var(--sidebar-width);
+            min-width: var(--sidebar-width);
+            background: var(--navy);
+            color: white;
+            overflow-y: auto;
+            border-right: 1px solid var(--navy-mid);
+        }
+        .sidebar::-webkit-scrollbar { width: 6px; }
+        .sidebar::-webkit-scrollbar-track { background: var(--navy); }
+        .sidebar::-webkit-scrollbar-thumb { background: var(--navy-mid); border-radius: 3px; }
+
+        .sidebar-section {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--navy-mid);
+        }
+        .sidebar-section-title {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--gray-400);
+            padding: 0 16px 8px;
+            font-weight: 600;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 16px;
+            cursor: pointer;
+            transition: background 0.15s;
+            gap: 10px;
+            font-size: 13px;
+            color: var(--gray-300);
+            border-left: 3px solid transparent;
+        }
+        .nav-item:hover {
+            background: var(--navy-light);
+            color: white;
+        }
+        .nav-item.active {
+            background: var(--navy-light);
+            color: white;
+            border-left-color: var(--blue);
+        }
+
+        .nav-item .nav-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .nav-icon.intro { background: var(--blue); color: white; }
+        .nav-icon.results { background: var(--green); color: white; }
+        .nav-icon.domain {
+            background: var(--navy-mid);
+            color: var(--gray-300);
+            border: 2px solid var(--gray-500);
+            font-size: 10px;
+        }
+        .nav-icon.domain.complete {
+            background: var(--green);
+            border-color: var(--green);
+            color: white;
+        }
+        .nav-icon.domain.partial {
+            background: var(--navy-mid);
+            border-color: var(--yellow);
+            color: var(--yellow);
+        }
+
+        .nav-item .nav-label {
+            flex: 1;
+            line-height: 1.3;
+        }
+        .nav-item .nav-label small {
+            display: block;
+            font-size: 11px;
+            color: var(--gray-500);
+            margin-top: 1px;
+        }
+        .nav-item .nav-count {
+            font-size: 11px;
+            color: var(--gray-500);
+            white-space: nowrap;
+        }
+
+        /* ===== MAIN CONTENT AREA ===== */
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0;
+            background: var(--gray-50);
+        }
+
+        .page { display: none; }
+        .page.active { display: block; }
+
+        /* ===== INTRODUCTION PAGE ===== */
+        .intro-page {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 40px 32px;
+        }
+        .intro-page h2 {
+            font-size: 28px;
+            color: var(--navy);
+            margin-bottom: 8px;
+        }
+        .intro-page .subtitle {
+            color: var(--gray-500);
+            font-size: 15px;
+            margin-bottom: 32px;
+        }
+
+        .info-card {
+            background: white;
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+        .info-card h3 {
+            font-size: 16px;
+            color: var(--navy);
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-group.full { grid-column: 1 / -1; }
+        .form-group label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--gray-600);
+            margin-bottom: 4px;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            padding: 8px 12px;
+            border: 1px solid var(--gray-300);
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: inherit;
+            color: var(--gray-800);
+            transition: border-color 0.2s;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .level-selector {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        .level-option {
+            flex: 1;
+            background: white;
+            border: 2px solid var(--gray-200);
+            border-radius: 8px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+        .level-option:hover { border-color: var(--blue-light); }
+        .level-option.selected {
+            border-color: var(--blue);
+            background: var(--blue-pale);
+        }
+        .level-option h4 {
+            font-size: 16px;
+            color: var(--navy);
+            margin-bottom: 4px;
+        }
+        .level-option p {
+            font-size: 12px;
+            color: var(--gray-500);
+        }
+        .level-option .practice-count {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--blue);
+            margin: 8px 0;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+        .btn-primary { background: var(--blue); color: white; }
+        .btn-primary:hover { background: #1d4ed8; }
+        .btn-secondary { background: white; color: var(--gray-700); border: 1px solid var(--gray-300); }
+        .btn-secondary:hover { background: var(--gray-100); }
+        .btn-success { background: var(--green); color: white; }
+        .btn-success:hover { background: #15803d; }
+
+        /* ===== DOMAIN ASSESSMENT PAGE ===== */
+        .domain-page {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 32px;
+        }
+
+        .domain-header {
+            background: white;
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        .domain-header-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+        .domain-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .domain-badge {
+            background: var(--navy);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .domain-header h2 {
+            font-size: 22px;
+            color: var(--navy);
+        }
+        .domain-progress-bar {
+            height: 8px;
+            background: var(--gray-200);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .domain-progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.4s ease;
+            background: linear-gradient(90deg, var(--blue), var(--blue-light));
+        }
+        .domain-progress-text {
+            font-size: 12px;
+            color: var(--gray-500);
+            margin-top: 4px;
+            text-align: right;
+        }
+
+        /* Practice Cards */
+        .practice-card {
+            background: white;
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            transition: border-color 0.2s;
+        }
+        .practice-card:hover { border-color: var(--gray-300); }
+        .practice-card.met { border-left: 4px solid var(--green); }
+        .practice-card.partial { border-left: 4px solid var(--yellow); }
+        .practice-card.not-met { border-left: 4px solid var(--red); }
+        .practice-card.not-assessed { border-left: 4px solid var(--gray-300); }
+
+        .practice-header {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            gap: 12px;
+        }
+        .practice-id {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--navy);
+            white-space: nowrap;
+        }
+        .practice-level-badge {
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 11px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+        .badge-l1 { background: var(--blue); color: white; }
+        .badge-l2 { background: #7c3aed; color: white; }
+        .practice-text {
+            flex: 1;
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--gray-700);
+        }
+        .practice-weight {
+            font-size: 11px;
+            color: var(--gray-400);
+            white-space: nowrap;
+        }
+
+        .practice-response {
+            display: flex;
+            align-items: center;
+            padding: 0 20px 16px;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .practice-response label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--gray-500);
+            margin-right: 8px;
+        }
+
+        .response-btn {
+            padding: 6px 14px;
+            border: 1px solid var(--gray-300);
+            border-radius: 4px;
+            background: white;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--gray-600);
+            transition: all 0.15s;
+        }
+        .response-btn:hover { background: var(--gray-100); }
+        .response-btn.selected-met {
+            background: var(--green-pale);
+            border-color: var(--green);
+            color: var(--green);
+        }
+        .response-btn.selected-partial {
+            background: var(--yellow-pale);
+            border-color: var(--yellow);
+            color: var(--yellow);
+        }
+        .response-btn.selected-not-met {
+            background: var(--red-pale);
+            border-color: var(--red);
+            color: var(--red);
+        }
+        .response-btn.selected-na {
+            background: var(--gray-100);
+            border-color: var(--gray-400);
+            color: var(--gray-500);
+        }
+
+        .practice-notes-toggle {
+            padding: 0 20px 12px;
+        }
+        .practice-notes-toggle button {
+            background: none;
+            border: none;
+            color: var(--blue);
+            font-size: 12px;
+            cursor: pointer;
+        }
+        .practice-notes {
+            display: none;
+            padding: 0 20px 16px;
+        }
+        .practice-notes.visible { display: block; }
+        .practice-notes textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid var(--gray-300);
+            border-radius: 4px;
+            font-size: 13px;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        /* Domain navigation arrows */
+        .domain-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        /* ===== RESULTS PAGE ===== */
+        .results-page {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 32px;
+        }
+        .results-page h2 {
+            font-size: 28px;
+            color: var(--navy);
+            margin-bottom: 24px;
+        }
+
+        .score-cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        .score-card {
+            background: white;
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+        .score-card .score-value {
+            font-size: 36px;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+        .score-card .score-label {
+            font-size: 12px;
+            color: var(--gray-500);
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .score-card.sprs .score-value { color: var(--blue); }
+        .score-card.met-count .score-value { color: var(--green); }
+        .score-card.partial-count .score-value { color: var(--yellow); }
+        .score-card.not-met-count .score-value { color: var(--red); }
+
+        /* Bar chart */
+        .chart-container {
+            background: white;
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        .chart-container h3 {
+            font-size: 16px;
+            color: var(--navy);
+            margin-bottom: 4px;
+        }
+        .chart-subtitle {
+            font-size: 12px;
+            color: var(--gray-500);
+            margin-bottom: 16px;
+        }
+        .chart-legend {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 16px;
+            font-size: 12px;
+        }
+        .chart-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .legend-swatch {
+            width: 14px;
+            height: 14px;
+            border-radius: 2px;
+        }
+
+        .stacked-bar-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .bar-label {
+            width: 40px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--gray-600);
+            text-align: right;
+            padding-right: 12px;
+            flex-shrink: 0;
+        }
+        .bar-track {
+            flex: 1;
+            height: 28px;
+            background: var(--gray-100);
+            border-radius: 4px;
+            overflow: hidden;
+            display: flex;
+        }
+        .bar-segment {
+            height: 100%;
+            transition: width 0.4s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 700;
+            color: white;
+            min-width: 0;
+        }
+        .bar-segment.met { background: var(--green); }
+        .bar-segment.partial { background: var(--yellow); }
+        .bar-segment.not-met { background: var(--red); }
+        .bar-segment.na { background: var(--gray-300); }
+        .bar-segment.unassessed { background: var(--gray-200); color: var(--gray-500); }
+        .bar-count {
+            width: 60px;
+            font-size: 11px;
+            color: var(--gray-500);
+            text-align: left;
+            padding-left: 8px;
+            flex-shrink: 0;
+        }
+
+        /* Level compliance cards */
+        .level-compliance {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .level-card {
+            background: white;
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            padding: 24px;
+        }
+        .level-card h3 { margin-bottom: 12px; color: var(--navy); }
+        .level-meter {
+            height: 12px;
+            background: var(--gray-200);
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        .level-meter-fill {
+            height: 100%;
+            border-radius: 6px;
+            transition: width 0.4s;
+        }
+        .level-meter-fill.l1 { background: var(--blue); }
+        .level-meter-fill.l2 { background: #7c3aed; }
+        .level-status {
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .level-status.pass { color: var(--green); }
+        .level-status.fail { color: var(--red); }
+
+        /* ===== TOAST NOTIFICATION ===== */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--navy);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        .toast.show {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            animation: slideUp 0.3s ease;
+        }
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .sidebar { display: none; }
+            .mobile-nav-toggle { display: block !important; }
+            .score-cards { grid-template-columns: repeat(2, 1fr); }
+            .level-compliance { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+            .intro-page, .domain-page, .results-page { padding: 20px 16px; }
+        }
+
+        .mobile-nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 4px 8px;
+        }
+        .sidebar.mobile-open {
+            display: block;
+            position: fixed;
+            top: 56px;
+            left: 0;
+            bottom: 0;
+            z-index: 50;
+        }
+
+        /* Print styles */
+        @media print {
+            .top-bar, .sidebar, .domain-nav, .practice-response, .top-bar-actions { display: none !important; }
+            .main-content { overflow: visible !important; }
+            .app-layout { display: block !important; }
+            body { overflow: visible !important; }
+        }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>CMMC Management Tool</h1>
-    
-    <div class="tabs">
-        <button class="tab-btn active" onclick="switchTab('system-info')">1. System Info</button>
-        <button class="tab-btn" onclick="switchTab('inventory')">2. Control Inventory</button>
-        <button class="tab-btn" onclick="switchTab('documents')">3. Generate SSP</button>
+<!-- ===== TOP HEADER ===== -->
+<div class="top-bar">
+    <div class="top-bar-left">
+        <button class="mobile-nav-toggle" onclick="toggleMobileNav()">&#9776;</button>
+        <img src="images/raptor-logo-new.png" alt="Raptor Cybersecurity" class="top-bar-logo">
+        <h1>CMMC 2.0 Assessment <span>Self-Evaluation Tool</span></h1>
     </div>
-
-    <div id="system-info" class="tab-content active">
-        <h2>System Details</h2>
-        <p>Enter the details for your System Security Plan.</p>
-        <div class="form-group">
-            <label for="systemName">Information System Name:</label>
-            <input type="text" id="systemName" placeholder="e.g., Corporate Network">
-        </div>
-        <div class="form-group">
-            <label for="systemDescription">System Environment & Boundary:</label>
-            <textarea id="systemDescription" rows="4" placeholder="Describe the physical and logical boundaries..."></textarea>
-        </div>
-        <button class="btn" onclick="saveSystemInfo()">Save System Info</button>
-        <span id="save-msg" style="color: green; display: none; margin-left: 10px;">Saved successfully!</span>
+    <div class="top-bar-actions">
+        <button onclick="saveAssessment()" title="Save progress to browser">&#128190; Save</button>
+        <button onclick="exportJSON()" title="Export as JSON file">&#128229; Export</button>
+        <button onclick="importJSON()" title="Import from JSON file">&#128228; Import</button>
+        <button onclick="generateSSP()" title="Generate System Security Plan">&#128196; SSP</button>
     </div>
-
-    <div id="inventory" class="tab-content">
-        <h2>CMMC Control Inventory</h2>
-        <div class="form-group">
-            <label for="levelFilter">Filter by Level:</label>
-            <select id="levelFilter" onchange="renderChecklist()" style="padding: 10px; border: 1px solid #bcccdc; border-radius: 4px; width: 100%; box-sizing: border-box;">
-                <option value="all">All Controls (110)</option>
-                <option value="1">Level 1 Only (17 controls — FCI)</option>
-                <option value="2">Level 2 Only (110 controls — CUI)</option>
-            </select>
-        </div>
-        <div id="progress-bar" style="background: #e4e7eb; border-radius: 8px; height: 24px; margin-bottom: 15px; overflow: hidden; position: relative;">
-            <div id="progress-fill" style="background: linear-gradient(90deg, #1976d2, #42a5f5); height: 100%; border-radius: 8px; transition: width 0.4s ease;"></div>
-            <span id="progress-text" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 12px; font-weight: bold; color: #333;"></span>
-        </div>
-        <div id="checklist"></div>
-    </div>
-
-    <div id="documents" class="tab-content">
-        <h2>Generate Documents</h2>
-        <p>Export your current progress and system information into a System Security Plan.</p>
-        <button class="btn" onclick="generateSSP()">Download SSP (Text File)</button>
-    </div>
-
 </div>
 
+<!-- ===== APP LAYOUT ===== -->
+<div class="app-layout">
+
+    <!-- LEFT SIDEBAR NAVIGATION -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-section">
+            <div class="sidebar-section-title">Getting Started</div>
+            <div class="nav-item active" onclick="showPage('intro')" data-page="intro">
+                <div class="nav-icon intro">&#9432;</div>
+                <div class="nav-label">Introduction<small>Organization & Scope</small></div>
+            </div>
+        </div>
+
+        <div class="sidebar-section">
+            <div class="sidebar-section-title">Assessment Domains (14)</div>
+            <div id="domain-nav-list"></div>
+        </div>
+
+        <div class="sidebar-section">
+            <div class="sidebar-section-title">Reporting</div>
+            <div class="nav-item" onclick="showPage('results')" data-page="results">
+                <div class="nav-icon results">&#9733;</div>
+                <div class="nav-label">Results & SPRS Score<small>Compliance Dashboard</small></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT AREA -->
+    <div class="main-content" id="main-content">
+
+        <!-- ===== INTRODUCTION PAGE ===== -->
+        <div class="page active" id="page-intro">
+            <div class="intro-page">
+                <h2>CMMC 2.0 Self-Assessment</h2>
+                <p class="subtitle">Evaluate your organization's compliance with CMMC Level 1 and Level 2 requirements based on NIST SP 800-171 Rev 2.</p>
+
+                <div class="info-card">
+                    <h3>Organization Information</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="orgName">Organization Name</label>
+                            <input type="text" id="orgName" placeholder="e.g., Acme Defense Corp">
+                        </div>
+                        <div class="form-group">
+                            <label for="assessorName">Assessor Name</label>
+                            <input type="text" id="assessorName" placeholder="e.g., Jane Smith">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cageCode">CAGE Code</label>
+                            <input type="text" id="cageCode" placeholder="e.g., 1ABC2">
+                        </div>
+                        <div class="form-group">
+                            <label for="assessDate">Assessment Date</label>
+                            <input type="date" id="assessDate">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group full">
+                            <label for="systemName">Information System Name</label>
+                            <input type="text" id="systemName" placeholder="e.g., Corporate IT Network">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group full">
+                            <label for="systemBoundary">System Environment & Boundary Description</label>
+                            <textarea id="systemBoundary" rows="3" placeholder="Describe the physical and logical boundaries of the system being assessed..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>Target CMMC Level</h3>
+                    <div class="level-selector">
+                        <div class="level-option" onclick="selectLevel(1)" id="level-opt-1">
+                            <h4>Level 1 &mdash; Foundational</h4>
+                            <p>FCI Protection</p>
+                            <div class="practice-count">17</div>
+                            <p>Practices (FAR 52.204-21)</p>
+                        </div>
+                        <div class="level-option selected" onclick="selectLevel(2)" id="level-opt-2">
+                            <h4>Level 2 &mdash; Advanced</h4>
+                            <p>CUI Protection</p>
+                            <div class="practice-count">110</div>
+                            <p>Practices (NIST 800-171)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>How This Assessment Works</h3>
+                    <p style="font-size:14px; line-height:1.7; color:var(--gray-600);">
+                        This tool follows the design approach of the DOE's C2M2 assessment, adapted for CMMC 2.0 compliance. For each of the 110 NIST SP 800-171 security requirements, you will select an implementation status:
+                    </p>
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-top:16px;">
+                        <div style="display:flex;align-items:center;gap:10px;padding:10px;background:var(--green-pale);border-radius:6px;">
+                            <span style="font-weight:700;color:var(--green);">MET</span>
+                            <span style="font-size:13px;color:var(--gray-600);">Practice is fully implemented and operational</span>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:10px;padding:10px;background:var(--yellow-pale);border-radius:6px;">
+                            <span style="font-weight:700;color:var(--yellow);">PARTIALLY MET</span>
+                            <span style="font-size:13px;color:var(--gray-600);">Implemented with recognized gaps</span>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:10px;padding:10px;background:var(--red-pale);border-radius:6px;">
+                            <span style="font-weight:700;color:var(--red);">NOT MET</span>
+                            <span style="font-size:13px;color:var(--gray-600);">Practice is not implemented</span>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:10px;padding:10px;background:var(--gray-100);border-radius:6px;">
+                            <span style="font-weight:700;color:var(--gray-500);">N/A</span>
+                            <span style="font-size:13px;color:var(--gray-600);">Not applicable to this system</span>
+                        </div>
+                    </div>
+                    <p style="font-size:13px; line-height:1.6; color:var(--gray-500); margin-top:16px;">
+                        Your <strong>SPRS score</strong> (Supplier Performance Risk System) will be calculated automatically. SPRS scores range from 110 (all controls met) to -203 (no controls met). A score of 110 is required for full Level 2 compliance.
+                    </p>
+                </div>
+
+                <div style="text-align:right; margin-top:20px;">
+                    <button class="btn btn-primary" onclick="showPage('domain-0')">Begin Assessment &#8594;</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Domain pages will be injected here by JS -->
+        <div id="domain-pages-container"></div>
+
+        <!-- ===== RESULTS PAGE ===== -->
+        <div class="page" id="page-results">
+            <div class="results-page">
+                <h2>Assessment Results</h2>
+
+                <div class="score-cards" id="score-cards">
+                    <div class="score-card sprs">
+                        <div class="score-value" id="sprs-score">--</div>
+                        <div class="score-label">SPRS Score</div>
+                    </div>
+                    <div class="score-card met-count">
+                        <div class="score-value" id="met-count">0</div>
+                        <div class="score-label">Met</div>
+                    </div>
+                    <div class="score-card partial-count">
+                        <div class="score-value" id="partial-count">0</div>
+                        <div class="score-label">Partially Met</div>
+                    </div>
+                    <div class="score-card not-met-count">
+                        <div class="score-value" id="not-met-count">0</div>
+                        <div class="score-label">Not Met</div>
+                    </div>
+                </div>
+
+                <div class="level-compliance" id="level-compliance">
+                    <div class="level-card">
+                        <h3>Level 1 &mdash; Foundational (17 Practices)</h3>
+                        <div class="level-meter"><div class="level-meter-fill l1" id="l1-meter" style="width:0%"></div></div>
+                        <div style="display:flex;justify-content:space-between;align-items:center;">
+                            <span id="l1-pct" style="font-size:14px;color:var(--gray-600);">0 / 17 met</span>
+                            <span class="level-status" id="l1-status">Not Achieved</span>
+                        </div>
+                    </div>
+                    <div class="level-card">
+                        <h3>Level 2 &mdash; Advanced (110 Practices)</h3>
+                        <div class="level-meter"><div class="level-meter-fill l2" id="l2-meter" style="width:0%"></div></div>
+                        <div style="display:flex;justify-content:space-between;align-items:center;">
+                            <span id="l2-pct" style="font-size:14px;color:var(--gray-600);">0 / 110 met</span>
+                            <span class="level-status" id="l2-status">Not Achieved</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <h3>Implementation Status by Domain</h3>
+                    <p class="chart-subtitle">Stacked bar chart showing compliance distribution across all 14 CMMC domains</p>
+                    <div class="chart-legend">
+                        <div class="chart-legend-item"><div class="legend-swatch" style="background:var(--green)"></div> Met</div>
+                        <div class="chart-legend-item"><div class="legend-swatch" style="background:var(--yellow)"></div> Partially Met</div>
+                        <div class="chart-legend-item"><div class="legend-swatch" style="background:var(--red)"></div> Not Met</div>
+                        <div class="chart-legend-item"><div class="legend-swatch" style="background:var(--gray-300)"></div> N/A</div>
+                        <div class="chart-legend-item"><div class="legend-swatch" style="background:var(--gray-200)"></div> Not Assessed</div>
+                    </div>
+                    <div id="domain-bars"></div>
+                </div>
+
+                <div style="display:flex;gap:12px;justify-content:flex-end;margin-top:24px;">
+                    <button class="btn btn-secondary" onclick="window.print()">&#128424; Print Report</button>
+                    <button class="btn btn-secondary" onclick="exportJSON()">&#128229; Export JSON</button>
+                    <button class="btn btn-success" onclick="generateSSP()">&#128196; Generate SSP</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Hidden file input for import -->
+<input type="file" id="importFileInput" accept=".json" style="display:none" onchange="handleImport(event)">
+
 <script>
-    // --- DATA STRUCTURES ---
-    const controls = [
-        // 3.1 ACCESS CONTROL (AC) — 22 Requirements
-        { id: 'AC.L1-3.1.1', level: 1, domain: 'Access Control', text: 'Limit information system access to authorized users, processes acting on behalf of authorized users, or devices (including other information systems).' },
-        { id: 'AC.L1-3.1.2', level: 1, domain: 'Access Control', text: 'Limit information system access to the types of transactions and functions that authorized users are permitted to execute.' },
-        { id: 'AC.L2-3.1.3', level: 2, domain: 'Access Control', text: 'Control the flow of CUI in accordance with approved authorizations.' },
-        { id: 'AC.L2-3.1.4', level: 2, domain: 'Access Control', text: 'Separate the duties of individuals to reduce the risk of malevolent activity without collusion.' },
-        { id: 'AC.L2-3.1.5', level: 2, domain: 'Access Control', text: 'Employ the principle of least privilege, including for specific security functions and privileged accounts.' },
-        { id: 'AC.L2-3.1.6', level: 2, domain: 'Access Control', text: 'Use non-privileged accounts or roles when accessing nonsecurity functions.' },
-        { id: 'AC.L2-3.1.7', level: 2, domain: 'Access Control', text: 'Prevent non-privileged users from executing privileged functions and capture the execution of such functions in audit logs.' },
-        { id: 'AC.L2-3.1.8', level: 2, domain: 'Access Control', text: 'Limit unsuccessful logon attempts.' },
-        { id: 'AC.L2-3.1.9', level: 2, domain: 'Access Control', text: 'Provide privacy and security notices consistent with applicable CUI rules.' },
-        { id: 'AC.L2-3.1.10', level: 2, domain: 'Access Control', text: 'Use session lock with pattern-hiding displays to prevent access and viewing of data after a period of inactivity.' },
-        { id: 'AC.L2-3.1.11', level: 2, domain: 'Access Control', text: 'Terminate (automatically) a user session after a defined condition.' },
-        { id: 'AC.L2-3.1.12', level: 2, domain: 'Access Control', text: 'Monitor and control remote access sessions.' },
-        { id: 'AC.L2-3.1.13', level: 2, domain: 'Access Control', text: 'Employ cryptographic mechanisms to protect the confidentiality of remote access sessions.' },
-        { id: 'AC.L2-3.1.14', level: 2, domain: 'Access Control', text: 'Route remote access via managed access control points.' },
-        { id: 'AC.L2-3.1.15', level: 2, domain: 'Access Control', text: 'Authorize remote execution of privileged commands and remote access to security-relevant information.' },
-        { id: 'AC.L2-3.1.16', level: 2, domain: 'Access Control', text: 'Authorize wireless access prior to allowing such connections.' },
-        { id: 'AC.L2-3.1.17', level: 2, domain: 'Access Control', text: 'Protect wireless access using authentication and encryption.' },
-        { id: 'AC.L2-3.1.18', level: 2, domain: 'Access Control', text: 'Control connection of mobile devices.' },
-        { id: 'AC.L2-3.1.19', level: 2, domain: 'Access Control', text: 'Encrypt CUI on mobile devices and mobile computing platforms.' },
-        { id: 'AC.L1-3.1.20', level: 1, domain: 'Access Control', text: 'Verify and control/limit connections to and use of external information systems.' },
-        { id: 'AC.L2-3.1.21', level: 2, domain: 'Access Control', text: 'Limit use of portable storage devices on external systems.' },
-        { id: 'AC.L1-3.1.22', level: 1, domain: 'Access Control', text: 'Control information posted or processed on publicly accessible information systems.' },
+// ============================================================
+// CMMC 2.0 CONTROLS DATA — All 110 NIST SP 800-171 Rev 2
+// Each control includes: id, level, domain, abbr, nist ref, text, and SPRS weight
+// ============================================================
+const DOMAINS = [
+    { abbr: 'AC', name: 'Access Control', nist: '3.1' },
+    { abbr: 'AT', name: 'Awareness and Training', nist: '3.2' },
+    { abbr: 'AU', name: 'Audit and Accountability', nist: '3.3' },
+    { abbr: 'CM', name: 'Configuration Management', nist: '3.4' },
+    { abbr: 'IA', name: 'Identification and Authentication', nist: '3.5' },
+    { abbr: 'IR', name: 'Incident Response', nist: '3.6' },
+    { abbr: 'MA', name: 'Maintenance', nist: '3.7' },
+    { abbr: 'MP', name: 'Media Protection', nist: '3.8' },
+    { abbr: 'PS', name: 'Personnel Security', nist: '3.9' },
+    { abbr: 'PE', name: 'Physical Protection', nist: '3.10' },
+    { abbr: 'RA', name: 'Risk Assessment', nist: '3.11' },
+    { abbr: 'CA', name: 'Security Assessment', nist: '3.12' },
+    { abbr: 'SC', name: 'System and Communications Protection', nist: '3.13' },
+    { abbr: 'SI', name: 'System and Information Integrity', nist: '3.14' }
+];
 
-        // 3.2 AWARENESS AND TRAINING (AT) — 3 Requirements
-        { id: 'AT.L2-3.2.1', level: 2, domain: 'Awareness and Training', text: 'Ensure that managers, systems administrators, and users of organizational systems are made aware of the security risks associated with their activities and of the applicable policies, standards, and procedures related to the security of those systems.' },
-        { id: 'AT.L2-3.2.2', level: 2, domain: 'Awareness and Training', text: 'Ensure that personnel are trained to carry out their assigned information security-related duties and responsibilities.' },
-        { id: 'AT.L2-3.2.3', level: 2, domain: 'Awareness and Training', text: 'Provide security awareness training on recognizing and reporting potential indicators of insider threat.' },
+const CONTROLS = [
+    // ===== 3.1 ACCESS CONTROL (AC) — 22 Requirements =====
+    { id:'AC.L1-3.1.1', level:1, domain:'AC', nist:'3.1.1', weight:5, text:'Limit information system access to authorized users, processes acting on behalf of authorized users, or devices (including other information systems).' },
+    { id:'AC.L1-3.1.2', level:1, domain:'AC', nist:'3.1.2', weight:5, text:'Limit information system access to the types of transactions and functions that authorized users are permitted to execute.' },
+    { id:'AC.L2-3.1.3', level:2, domain:'AC', nist:'3.1.3', weight:5, text:'Control the flow of CUI in accordance with approved authorizations.' },
+    { id:'AC.L2-3.1.4', level:2, domain:'AC', nist:'3.1.4', weight:3, text:'Separate the duties of individuals to reduce the risk of malevolent activity without collusion.' },
+    { id:'AC.L2-3.1.5', level:2, domain:'AC', nist:'3.1.5', weight:5, text:'Employ the principle of least privilege, including for specific security functions and privileged accounts.' },
+    { id:'AC.L2-3.1.6', level:2, domain:'AC', nist:'3.1.6', weight:1, text:'Use non-privileged accounts or roles when accessing nonsecurity functions.' },
+    { id:'AC.L2-3.1.7', level:2, domain:'AC', nist:'3.1.7', weight:5, text:'Prevent non-privileged users from executing privileged functions and capture the execution of such functions in audit logs.' },
+    { id:'AC.L2-3.1.8', level:2, domain:'AC', nist:'3.1.8', weight:3, text:'Limit unsuccessful logon attempts.' },
+    { id:'AC.L2-3.1.9', level:2, domain:'AC', nist:'3.1.9', weight:1, text:'Provide privacy and security notices consistent with applicable CUI rules.' },
+    { id:'AC.L2-3.1.10', level:2, domain:'AC', nist:'3.1.10', weight:1, text:'Use session lock with pattern-hiding displays to prevent access and viewing of data after a period of inactivity.' },
+    { id:'AC.L2-3.1.11', level:2, domain:'AC', nist:'3.1.11', weight:3, text:'Terminate (automatically) a user session after a defined condition.' },
+    { id:'AC.L2-3.1.12', level:2, domain:'AC', nist:'3.1.12', weight:5, text:'Monitor and control remote access sessions.' },
+    { id:'AC.L2-3.1.13', level:2, domain:'AC', nist:'3.1.13', weight:5, text:'Employ cryptographic mechanisms to protect the confidentiality of remote access sessions.' },
+    { id:'AC.L2-3.1.14', level:2, domain:'AC', nist:'3.1.14', weight:5, text:'Route remote access via managed access control points.' },
+    { id:'AC.L2-3.1.15', level:2, domain:'AC', nist:'3.1.15', weight:3, text:'Authorize remote execution of privileged commands and remote access to security-relevant information.' },
+    { id:'AC.L2-3.1.16', level:2, domain:'AC', nist:'3.1.16', weight:1, text:'Authorize wireless access prior to allowing such connections.' },
+    { id:'AC.L2-3.1.17', level:2, domain:'AC', nist:'3.1.17', weight:5, text:'Protect wireless access using authentication and encryption.' },
+    { id:'AC.L2-3.1.18', level:2, domain:'AC', nist:'3.1.18', weight:3, text:'Control connection of mobile devices.' },
+    { id:'AC.L2-3.1.19', level:2, domain:'AC', nist:'3.1.19', weight:5, text:'Encrypt CUI on mobile devices and mobile computing platforms.' },
+    { id:'AC.L1-3.1.20', level:1, domain:'AC', nist:'3.1.20', weight:5, text:'Verify and control/limit connections to and use of external information systems.' },
+    { id:'AC.L2-3.1.21', level:2, domain:'AC', nist:'3.1.21', weight:1, text:'Limit use of portable storage devices on external systems.' },
+    { id:'AC.L1-3.1.22', level:1, domain:'AC', nist:'3.1.22', weight:1, text:'Control information posted or processed on publicly accessible information systems.' },
 
-        // 3.3 AUDIT AND ACCOUNTABILITY (AU) — 9 Requirements
-        { id: 'AU.L2-3.3.1', level: 2, domain: 'Audit and Accountability', text: 'Create and retain system audit logs and records to the extent needed to enable the monitoring, analysis, investigation, and reporting of unlawful or unauthorized system activity.' },
-        { id: 'AU.L2-3.3.2', level: 2, domain: 'Audit and Accountability', text: 'Ensure that the actions of individual system users can be uniquely traced to those users so they can be held accountable for their actions.' },
-        { id: 'AU.L2-3.3.3', level: 2, domain: 'Audit and Accountability', text: 'Review and update logged events.' },
-        { id: 'AU.L2-3.3.4', level: 2, domain: 'Audit and Accountability', text: 'Alert in the event of an audit logging process failure.' },
-        { id: 'AU.L2-3.3.5', level: 2, domain: 'Audit and Accountability', text: 'Correlate audit record review, analysis, and reporting processes to support organizational processes for investigation and response to indications of unlawful, unauthorized, suspicious, or unusual activity.' },
-        { id: 'AU.L2-3.3.6', level: 2, domain: 'Audit and Accountability', text: 'Provide audit record reduction and report generation to support on-demand analysis and reporting.' },
-        { id: 'AU.L2-3.3.7', level: 2, domain: 'Audit and Accountability', text: 'Provide a system capability that compares and synchronizes internal system clocks with an authoritative source to generate time stamps for audit records.' },
-        { id: 'AU.L2-3.3.8', level: 2, domain: 'Audit and Accountability', text: 'Protect audit information and audit logging tools from unauthorized access, modification, and deletion.' },
-        { id: 'AU.L2-3.3.9', level: 2, domain: 'Audit and Accountability', text: 'Limit management of audit logging functionality to a subset of privileged users.' },
+    // ===== 3.2 AWARENESS AND TRAINING (AT) — 3 Requirements =====
+    { id:'AT.L2-3.2.1', level:2, domain:'AT', nist:'3.2.1', weight:3, text:'Ensure that managers, systems administrators, and users of organizational systems are made aware of the security risks associated with their activities and of the applicable policies, standards, and procedures related to the security of those systems.' },
+    { id:'AT.L2-3.2.2', level:2, domain:'AT', nist:'3.2.2', weight:3, text:'Ensure that personnel are trained to carry out their assigned information security-related duties and responsibilities.' },
+    { id:'AT.L2-3.2.3', level:2, domain:'AT', nist:'3.2.3', weight:3, text:'Provide security awareness training on recognizing and reporting potential indicators of insider threat.' },
 
-        // 3.4 CONFIGURATION MANAGEMENT (CM) — 9 Requirements
-        { id: 'CM.L2-3.4.1', level: 2, domain: 'Configuration Management', text: 'Establish and maintain baseline configurations and inventories of organizational systems (including hardware, software, firmware, and documentation) throughout the respective system development life cycles.' },
-        { id: 'CM.L2-3.4.2', level: 2, domain: 'Configuration Management', text: 'Establish and enforce security configuration settings for information technology products employed in organizational systems.' },
-        { id: 'CM.L2-3.4.3', level: 2, domain: 'Configuration Management', text: 'Track, review, approve or disapprove, and log changes to organizational systems.' },
-        { id: 'CM.L2-3.4.4', level: 2, domain: 'Configuration Management', text: 'Analyze the security impact of changes prior to implementation.' },
-        { id: 'CM.L2-3.4.5', level: 2, domain: 'Configuration Management', text: 'Define, document, approve, and enforce physical and logical access restrictions associated with changes to organizational systems.' },
-        { id: 'CM.L2-3.4.6', level: 2, domain: 'Configuration Management', text: 'Employ the principle of least functionality by configuring organizational systems to provide only essential capabilities.' },
-        { id: 'CM.L2-3.4.7', level: 2, domain: 'Configuration Management', text: 'Restrict, disable, or prevent the use of nonessential programs, functions, ports, protocols, and services.' },
-        { id: 'CM.L2-3.4.8', level: 2, domain: 'Configuration Management', text: 'Apply deny-by-exception (blacklisting) policy to prevent the use of unauthorized software or deny-all, permit-by-exception (whitelisting) policy to allow the execution of authorized software.' },
-        { id: 'CM.L2-3.4.9', level: 2, domain: 'Configuration Management', text: 'Control and monitor user-installed software.' },
+    // ===== 3.3 AUDIT AND ACCOUNTABILITY (AU) — 9 Requirements =====
+    { id:'AU.L2-3.3.1', level:2, domain:'AU', nist:'3.3.1', weight:5, text:'Create and retain system audit logs and records to the extent needed to enable the monitoring, analysis, investigation, and reporting of unlawful or unauthorized system activity.' },
+    { id:'AU.L2-3.3.2', level:2, domain:'AU', nist:'3.3.2', weight:5, text:'Ensure that the actions of individual system users can be uniquely traced to those users so they can be held accountable for their actions.' },
+    { id:'AU.L2-3.3.3', level:2, domain:'AU', nist:'3.3.3', weight:1, text:'Review and update logged events.' },
+    { id:'AU.L2-3.3.4', level:2, domain:'AU', nist:'3.3.4', weight:3, text:'Alert in the event of an audit logging process failure.' },
+    { id:'AU.L2-3.3.5', level:2, domain:'AU', nist:'3.3.5', weight:3, text:'Correlate audit record review, analysis, and reporting processes to support organizational processes for investigation and response to indications of unlawful, unauthorized, suspicious, or unusual activity.' },
+    { id:'AU.L2-3.3.6', level:2, domain:'AU', nist:'3.3.6', weight:1, text:'Provide audit record reduction and report generation to support on-demand analysis and reporting.' },
+    { id:'AU.L2-3.3.7', level:2, domain:'AU', nist:'3.3.7', weight:1, text:'Provide a system capability that compares and synchronizes internal system clocks with an authoritative source to generate time stamps for audit records.' },
+    { id:'AU.L2-3.3.8', level:2, domain:'AU', nist:'3.3.8', weight:3, text:'Protect audit information and audit logging tools from unauthorized access, modification, and deletion.' },
+    { id:'AU.L2-3.3.9', level:2, domain:'AU', nist:'3.3.9', weight:1, text:'Limit management of audit logging functionality to a subset of privileged users.' },
 
-        // 3.5 IDENTIFICATION AND AUTHENTICATION (IA) — 11 Requirements
-        { id: 'IA.L1-3.5.1', level: 1, domain: 'Identification and Authentication', text: 'Identify information system users, processes acting on behalf of users, or devices.' },
-        { id: 'IA.L1-3.5.2', level: 1, domain: 'Identification and Authentication', text: 'Authenticate (or verify) the identities of those users, processes, or devices, as a prerequisite to allowing access to organizational information systems.' },
-        { id: 'IA.L2-3.5.3', level: 2, domain: 'Identification and Authentication', text: 'Use multifactor authentication for local and network access to privileged accounts and for network access to non-privileged accounts.' },
-        { id: 'IA.L2-3.5.4', level: 2, domain: 'Identification and Authentication', text: 'Employ replay-resistant authentication mechanisms for network access to privileged and non-privileged accounts.' },
-        { id: 'IA.L2-3.5.5', level: 2, domain: 'Identification and Authentication', text: 'Prevent reuse of identifiers for a defined period.' },
-        { id: 'IA.L2-3.5.6', level: 2, domain: 'Identification and Authentication', text: 'Disable identifiers after a defined period of inactivity.' },
-        { id: 'IA.L2-3.5.7', level: 2, domain: 'Identification and Authentication', text: 'Enforce a minimum password complexity and change of characters when new passwords are created.' },
-        { id: 'IA.L2-3.5.8', level: 2, domain: 'Identification and Authentication', text: 'Prohibit password reuse for a specified number of generations.' },
-        { id: 'IA.L2-3.5.9', level: 2, domain: 'Identification and Authentication', text: 'Allow temporary password use for system logons with an immediate change to a permanent password.' },
-        { id: 'IA.L2-3.5.10', level: 2, domain: 'Identification and Authentication', text: 'Store and transmit only cryptographically-protected passwords.' },
-        { id: 'IA.L2-3.5.11', level: 2, domain: 'Identification and Authentication', text: 'Obscure feedback of authentication information.' },
+    // ===== 3.4 CONFIGURATION MANAGEMENT (CM) — 9 Requirements =====
+    { id:'CM.L2-3.4.1', level:2, domain:'CM', nist:'3.4.1', weight:5, text:'Establish and maintain baseline configurations and inventories of organizational systems (including hardware, software, firmware, and documentation) throughout the respective system development life cycles.' },
+    { id:'CM.L2-3.4.2', level:2, domain:'CM', nist:'3.4.2', weight:5, text:'Establish and enforce security configuration settings for information technology products employed in organizational systems.' },
+    { id:'CM.L2-3.4.3', level:2, domain:'CM', nist:'3.4.3', weight:3, text:'Track, review, approve or disapprove, and log changes to organizational systems.' },
+    { id:'CM.L2-3.4.4', level:2, domain:'CM', nist:'3.4.4', weight:3, text:'Analyze the security impact of changes prior to implementation.' },
+    { id:'CM.L2-3.4.5', level:2, domain:'CM', nist:'3.4.5', weight:3, text:'Define, document, approve, and enforce physical and logical access restrictions associated with changes to organizational systems.' },
+    { id:'CM.L2-3.4.6', level:2, domain:'CM', nist:'3.4.6', weight:3, text:'Employ the principle of least functionality by configuring organizational systems to provide only essential capabilities.' },
+    { id:'CM.L2-3.4.7', level:2, domain:'CM', nist:'3.4.7', weight:3, text:'Restrict, disable, or prevent the use of nonessential programs, functions, ports, protocols, and services.' },
+    { id:'CM.L2-3.4.8', level:2, domain:'CM', nist:'3.4.8', weight:3, text:'Apply deny-by-exception (blacklisting) policy to prevent the use of unauthorized software or deny-all, permit-by-exception (whitelisting) policy to allow the execution of authorized software.' },
+    { id:'CM.L2-3.4.9', level:2, domain:'CM', nist:'3.4.9', weight:1, text:'Control and monitor user-installed software.' },
 
-        // 3.6 INCIDENT RESPONSE (IR) — 3 Requirements
-        { id: 'IR.L2-3.6.1', level: 2, domain: 'Incident Response', text: 'Establish an operational incident-handling capability for organizational systems that includes preparation, detection, analysis, containment, recovery, and user response activities.' },
-        { id: 'IR.L2-3.6.2', level: 2, domain: 'Incident Response', text: 'Track, document, and report incidents to designated officials and/or authorities both internal and external to the organization.' },
-        { id: 'IR.L2-3.6.3', level: 2, domain: 'Incident Response', text: 'Test the organizational incident response capability.' },
+    // ===== 3.5 IDENTIFICATION AND AUTHENTICATION (IA) — 11 Requirements =====
+    { id:'IA.L1-3.5.1', level:1, domain:'IA', nist:'3.5.1', weight:5, text:'Identify information system users, processes acting on behalf of users, or devices.' },
+    { id:'IA.L1-3.5.2', level:1, domain:'IA', nist:'3.5.2', weight:5, text:'Authenticate (or verify) the identities of those users, processes, or devices, as a prerequisite to allowing access to organizational information systems.' },
+    { id:'IA.L2-3.5.3', level:2, domain:'IA', nist:'3.5.3', weight:5, text:'Use multifactor authentication for local and network access to privileged accounts and for network access to non-privileged accounts.' },
+    { id:'IA.L2-3.5.4', level:2, domain:'IA', nist:'3.5.4', weight:5, text:'Employ replay-resistant authentication mechanisms for network access to privileged and non-privileged accounts.' },
+    { id:'IA.L2-3.5.5', level:2, domain:'IA', nist:'3.5.5', weight:1, text:'Prevent reuse of identifiers for a defined period.' },
+    { id:'IA.L2-3.5.6', level:2, domain:'IA', nist:'3.5.6', weight:1, text:'Disable identifiers after a defined period of inactivity.' },
+    { id:'IA.L2-3.5.7', level:2, domain:'IA', nist:'3.5.7', weight:3, text:'Enforce a minimum password complexity and change of characters when new passwords are created.' },
+    { id:'IA.L2-3.5.8', level:2, domain:'IA', nist:'3.5.8', weight:1, text:'Prohibit password reuse for a specified number of generations.' },
+    { id:'IA.L2-3.5.9', level:2, domain:'IA', nist:'3.5.9', weight:1, text:'Allow temporary password use for system logons with an immediate change to a permanent password.' },
+    { id:'IA.L2-3.5.10', level:2, domain:'IA', nist:'3.5.10', weight:5, text:'Store and transmit only cryptographically-protected passwords.' },
+    { id:'IA.L2-3.5.11', level:2, domain:'IA', nist:'3.5.11', weight:1, text:'Obscure feedback of authentication information.' },
 
-        // 3.7 MAINTENANCE (MA) — 6 Requirements
-        { id: 'MA.L2-3.7.1', level: 2, domain: 'Maintenance', text: 'Perform maintenance on organizational systems.' },
-        { id: 'MA.L2-3.7.2', level: 2, domain: 'Maintenance', text: 'Provide controls on the tools, techniques, mechanisms, and personnel used to conduct system maintenance.' },
-        { id: 'MA.L2-3.7.3', level: 2, domain: 'Maintenance', text: 'Ensure equipment removed for off-site maintenance is sanitized of any CUI.' },
-        { id: 'MA.L2-3.7.4', level: 2, domain: 'Maintenance', text: 'Check media containing diagnostic and test programs for malicious code before the media are used in organizational systems.' },
-        { id: 'MA.L2-3.7.5', level: 2, domain: 'Maintenance', text: 'Require multifactor authentication to establish nonlocal maintenance sessions via external network connections and terminate such connections when nonlocal maintenance is complete.' },
-        { id: 'MA.L2-3.7.6', level: 2, domain: 'Maintenance', text: 'Supervise the maintenance activities of maintenance personnel without required access authorization.' },
+    // ===== 3.6 INCIDENT RESPONSE (IR) — 3 Requirements =====
+    { id:'IR.L2-3.6.1', level:2, domain:'IR', nist:'3.6.1', weight:5, text:'Establish an operational incident-handling capability for organizational systems that includes preparation, detection, analysis, containment, recovery, and user response activities.' },
+    { id:'IR.L2-3.6.2', level:2, domain:'IR', nist:'3.6.2', weight:5, text:'Track, document, and report incidents to designated officials and/or authorities both internal and external to the organization.' },
+    { id:'IR.L2-3.6.3', level:2, domain:'IR', nist:'3.6.3', weight:3, text:'Test the organizational incident response capability.' },
 
-        // 3.8 MEDIA PROTECTION (MP) — 9 Requirements
-        { id: 'MP.L1-3.8.3', level: 1, domain: 'Media Protection', text: 'Sanitize or destroy information system media containing Federal Contract Information before disposal or release for reuse.' },
-        { id: 'MP.L2-3.8.1', level: 2, domain: 'Media Protection', text: 'Protect (i.e., physically control and securely store) system media containing CUI, both paper and digital.' },
-        { id: 'MP.L2-3.8.2', level: 2, domain: 'Media Protection', text: 'Limit access to CUI on system media to authorized users.' },
-        { id: 'MP.L2-3.8.4', level: 2, domain: 'Media Protection', text: 'Mark media with necessary CUI markings and distribution limitations.' },
-        { id: 'MP.L2-3.8.5', level: 2, domain: 'Media Protection', text: 'Control access to media containing CUI and maintain accountability for media during transport outside of controlled areas.' },
-        { id: 'MP.L2-3.8.6', level: 2, domain: 'Media Protection', text: 'Implement cryptographic mechanisms to protect the confidentiality of CUI stored on digital media during transport unless otherwise protected by alternative physical safeguards.' },
-        { id: 'MP.L2-3.8.7', level: 2, domain: 'Media Protection', text: 'Control the use of removable media on system components.' },
-        { id: 'MP.L2-3.8.8', level: 2, domain: 'Media Protection', text: 'Prohibit the use of portable storage devices when such devices have no identifiable owner.' },
-        { id: 'MP.L2-3.8.9', level: 2, domain: 'Media Protection', text: 'Protect the confidentiality of backup CUI at storage locations.' },
+    // ===== 3.7 MAINTENANCE (MA) — 6 Requirements =====
+    { id:'MA.L2-3.7.1', level:2, domain:'MA', nist:'3.7.1', weight:1, text:'Perform maintenance on organizational systems.' },
+    { id:'MA.L2-3.7.2', level:2, domain:'MA', nist:'3.7.2', weight:3, text:'Provide controls on the tools, techniques, mechanisms, and personnel used to conduct system maintenance.' },
+    { id:'MA.L2-3.7.3', level:2, domain:'MA', nist:'3.7.3', weight:3, text:'Ensure equipment removed for off-site maintenance is sanitized of any CUI.' },
+    { id:'MA.L2-3.7.4', level:2, domain:'MA', nist:'3.7.4', weight:3, text:'Check media containing diagnostic and test programs for malicious code before the media are used in organizational systems.' },
+    { id:'MA.L2-3.7.5', level:2, domain:'MA', nist:'3.7.5', weight:5, text:'Require multifactor authentication to establish nonlocal maintenance sessions via external network connections and terminate such connections when nonlocal maintenance is complete.' },
+    { id:'MA.L2-3.7.6', level:2, domain:'MA', nist:'3.7.6', weight:3, text:'Supervise the maintenance activities of maintenance personnel without required access authorization.' },
 
-        // 3.9 PERSONNEL SECURITY (PS) — 2 Requirements
-        { id: 'PS.L2-3.9.1', level: 2, domain: 'Personnel Security', text: 'Screen individuals prior to authorizing access to organizational systems containing CUI.' },
-        { id: 'PS.L2-3.9.2', level: 2, domain: 'Personnel Security', text: 'Ensure that organizational systems containing CUI are protected during and after personnel actions such as terminations and transfers.' },
+    // ===== 3.8 MEDIA PROTECTION (MP) — 9 Requirements =====
+    { id:'MP.L1-3.8.3', level:1, domain:'MP', nist:'3.8.3', weight:5, text:'Sanitize or destroy information system media containing Federal Contract Information before disposal or release for reuse.' },
+    { id:'MP.L2-3.8.1', level:2, domain:'MP', nist:'3.8.1', weight:3, text:'Protect (i.e., physically control and securely store) system media containing CUI, both paper and digital.' },
+    { id:'MP.L2-3.8.2', level:2, domain:'MP', nist:'3.8.2', weight:3, text:'Limit access to CUI on system media to authorized users.' },
+    { id:'MP.L2-3.8.4', level:2, domain:'MP', nist:'3.8.4', weight:1, text:'Mark media with necessary CUI markings and distribution limitations.' },
+    { id:'MP.L2-3.8.5', level:2, domain:'MP', nist:'3.8.5', weight:3, text:'Control access to media containing CUI and maintain accountability for media during transport outside of controlled areas.' },
+    { id:'MP.L2-3.8.6', level:2, domain:'MP', nist:'3.8.6', weight:5, text:'Implement cryptographic mechanisms to protect the confidentiality of CUI stored on digital media during transport unless otherwise protected by alternative physical safeguards.' },
+    { id:'MP.L2-3.8.7', level:2, domain:'MP', nist:'3.8.7', weight:3, text:'Control the use of removable media on system components.' },
+    { id:'MP.L2-3.8.8', level:2, domain:'MP', nist:'3.8.8', weight:1, text:'Prohibit the use of portable storage devices when such devices have no identifiable owner.' },
+    { id:'MP.L2-3.8.9', level:2, domain:'MP', nist:'3.8.9', weight:3, text:'Protect the confidentiality of backup CUI at storage locations.' },
 
-        // 3.10 PHYSICAL PROTECTION (PE) — 6 Requirements
-        { id: 'PE.L1-3.10.1', level: 1, domain: 'Physical Protection', text: 'Limit physical access to organizational information systems, equipment, and the respective operating environments to authorized individuals.' },
-        { id: 'PE.L2-3.10.2', level: 2, domain: 'Physical Protection', text: 'Protect and monitor the physical facility and support infrastructure for organizational systems.' },
-        { id: 'PE.L1-3.10.3', level: 1, domain: 'Physical Protection', text: 'Escort visitors and monitor visitor activity.' },
-        { id: 'PE.L1-3.10.4', level: 1, domain: 'Physical Protection', text: 'Maintain audit logs of physical access.' },
-        { id: 'PE.L1-3.10.5', level: 1, domain: 'Physical Protection', text: 'Control and manage physical access devices.' },
-        { id: 'PE.L2-3.10.6', level: 2, domain: 'Physical Protection', text: 'Enforce safeguarding measures for CUI at alternate work sites.' },
+    // ===== 3.9 PERSONNEL SECURITY (PS) — 2 Requirements =====
+    { id:'PS.L2-3.9.1', level:2, domain:'PS', nist:'3.9.1', weight:3, text:'Screen individuals prior to authorizing access to organizational systems containing CUI.' },
+    { id:'PS.L2-3.9.2', level:2, domain:'PS', nist:'3.9.2', weight:3, text:'Ensure that organizational systems containing CUI are protected during and after personnel actions such as terminations and transfers.' },
 
-        // 3.11 RISK ASSESSMENT (RA) — 3 Requirements
-        { id: 'RA.L2-3.11.1', level: 2, domain: 'Risk Assessment', text: 'Periodically assess the risk to organizational operations (including mission, functions, image, or reputation), organizational assets, and individuals, resulting from the operation of organizational systems and the associated processing, storage, or transmission of CUI.' },
-        { id: 'RA.L2-3.11.2', level: 2, domain: 'Risk Assessment', text: 'Scan for vulnerabilities in organizational systems and applications periodically and when new vulnerabilities affecting those systems and applications are identified.' },
-        { id: 'RA.L2-3.11.3', level: 2, domain: 'Risk Assessment', text: 'Remediate vulnerabilities in accordance with risk assessments.' },
+    // ===== 3.10 PHYSICAL PROTECTION (PE) — 6 Requirements =====
+    { id:'PE.L1-3.10.1', level:1, domain:'PE', nist:'3.10.1', weight:5, text:'Limit physical access to organizational information systems, equipment, and the respective operating environments to authorized individuals.' },
+    { id:'PE.L2-3.10.2', level:2, domain:'PE', nist:'3.10.2', weight:3, text:'Protect and monitor the physical facility and support infrastructure for organizational systems.' },
+    { id:'PE.L1-3.10.3', level:1, domain:'PE', nist:'3.10.3', weight:1, text:'Escort visitors and monitor visitor activity.' },
+    { id:'PE.L1-3.10.4', level:1, domain:'PE', nist:'3.10.4', weight:1, text:'Maintain audit logs of physical access.' },
+    { id:'PE.L1-3.10.5', level:1, domain:'PE', nist:'3.10.5', weight:1, text:'Control and manage physical access devices.' },
+    { id:'PE.L2-3.10.6', level:2, domain:'PE', nist:'3.10.6', weight:3, text:'Enforce safeguarding measures for CUI at alternate work sites.' },
 
-        // 3.12 SECURITY ASSESSMENT (CA) — 4 Requirements
-        { id: 'CA.L2-3.12.1', level: 2, domain: 'Security Assessment', text: 'Periodically assess the security controls in organizational systems to determine if the controls are effective in their application.' },
-        { id: 'CA.L2-3.12.2', level: 2, domain: 'Security Assessment', text: 'Develop and implement plans of action designed to correct deficiencies and reduce or eliminate vulnerabilities in organizational systems.' },
-        { id: 'CA.L2-3.12.3', level: 2, domain: 'Security Assessment', text: 'Monitor security controls on an ongoing basis to ensure the continued effectiveness of the controls.' },
-        { id: 'CA.L2-3.12.4', level: 2, domain: 'Security Assessment', text: 'Develop, document, and periodically update system security plans that describe system boundaries, system environments of operation, how security requirements are implemented, and the relationships with or connections to other systems.' },
+    // ===== 3.11 RISK ASSESSMENT (RA) — 3 Requirements =====
+    { id:'RA.L2-3.11.1', level:2, domain:'RA', nist:'3.11.1', weight:3, text:'Periodically assess the risk to organizational operations (including mission, functions, image, or reputation), organizational assets, and individuals, resulting from the operation of organizational systems and the associated processing, storage, or transmission of CUI.' },
+    { id:'RA.L2-3.11.2', level:2, domain:'RA', nist:'3.11.2', weight:5, text:'Scan for vulnerabilities in organizational systems and applications periodically and when new vulnerabilities affecting those systems and applications are identified.' },
+    { id:'RA.L2-3.11.3', level:2, domain:'RA', nist:'3.11.3', weight:5, text:'Remediate vulnerabilities in accordance with risk assessments.' },
 
-        // 3.13 SYSTEM AND COMMUNICATIONS PROTECTION (SC) — 16 Requirements
-        { id: 'SC.L1-3.13.1', level: 1, domain: 'System and Communications Protection', text: 'Monitor, control, and protect communications (i.e., information transmitted or received by organizational systems) at the external boundaries and key internal boundaries of organizational systems.' },
-        { id: 'SC.L2-3.13.2', level: 2, domain: 'System and Communications Protection', text: 'Employ architectural designs, software development techniques, and systems engineering principles that promote effective information security within organizational systems.' },
-        { id: 'SC.L2-3.13.3', level: 2, domain: 'System and Communications Protection', text: 'Separate user functionality from system management functionality.' },
-        { id: 'SC.L2-3.13.4', level: 2, domain: 'System and Communications Protection', text: 'Prevent unauthorized and unintended information transfer via shared system resources.' },
-        { id: 'SC.L1-3.13.5', level: 1, domain: 'System and Communications Protection', text: 'Implement subnetworks for publicly accessible system components that are physically or logically separated from internal networks.' },
-        { id: 'SC.L2-3.13.6', level: 2, domain: 'System and Communications Protection', text: 'Deny network communications traffic by default and allow network communications traffic by exception (i.e., deny all, permit by exception).' },
-        { id: 'SC.L2-3.13.7', level: 2, domain: 'System and Communications Protection', text: 'Prevent remote devices from simultaneously establishing non-remote connections with organizational systems and communicating via some other connection to resources in external networks (i.e., split tunneling).' },
-        { id: 'SC.L2-3.13.8', level: 2, domain: 'System and Communications Protection', text: 'Implement cryptographic mechanisms to prevent unauthorized disclosure of CUI during transmission unless otherwise protected by alternative physical safeguards.' },
-        { id: 'SC.L2-3.13.9', level: 2, domain: 'System and Communications Protection', text: 'Terminate network connections associated with communications sessions at the end of the sessions or after a defined period of inactivity.' },
-        { id: 'SC.L2-3.13.10', level: 2, domain: 'System and Communications Protection', text: 'Establish and manage cryptographic keys for cryptography employed in organizational systems.' },
-        { id: 'SC.L2-3.13.11', level: 2, domain: 'System and Communications Protection', text: 'Employ FIPS-validated cryptography when used to protect the confidentiality of CUI.' },
-        { id: 'SC.L2-3.13.12', level: 2, domain: 'System and Communications Protection', text: 'Prohibit remote activation of collaborative computing devices and provide indication of devices in use to users present at the device.' },
-        { id: 'SC.L2-3.13.13', level: 2, domain: 'System and Communications Protection', text: 'Control and monitor the use of mobile code.' },
-        { id: 'SC.L2-3.13.14', level: 2, domain: 'System and Communications Protection', text: 'Control and monitor the use of Voice over Internet Protocol (VoIP) technologies.' },
-        { id: 'SC.L2-3.13.15', level: 2, domain: 'System and Communications Protection', text: 'Protect the authenticity of communications sessions.' },
-        { id: 'SC.L2-3.13.16', level: 2, domain: 'System and Communications Protection', text: 'Protect the confidentiality of CUI at rest.' },
+    // ===== 3.12 SECURITY ASSESSMENT (CA) — 4 Requirements =====
+    { id:'CA.L2-3.12.1', level:2, domain:'CA', nist:'3.12.1', weight:3, text:'Periodically assess the security controls in organizational systems to determine if the controls are effective in their application.' },
+    { id:'CA.L2-3.12.2', level:2, domain:'CA', nist:'3.12.2', weight:5, text:'Develop and implement plans of action designed to correct deficiencies and reduce or eliminate vulnerabilities in organizational systems.' },
+    { id:'CA.L2-3.12.3', level:2, domain:'CA', nist:'3.12.3', weight:3, text:'Monitor security controls on an ongoing basis to ensure the continued effectiveness of the controls.' },
+    { id:'CA.L2-3.12.4', level:2, domain:'CA', nist:'3.12.4', weight:5, text:'Develop, document, and periodically update system security plans that describe system boundaries, system environments of operation, how security requirements are implemented, and the relationships with or connections to other systems.' },
 
-        // 3.14 SYSTEM AND INFORMATION INTEGRITY (SI) — 7 Requirements
-        { id: 'SI.L1-3.14.1', level: 1, domain: 'System and Information Integrity', text: 'Identify, report, and correct information and information system flaws in a timely manner.' },
-        { id: 'SI.L1-3.14.2', level: 1, domain: 'System and Information Integrity', text: 'Provide protection from malicious code at appropriate locations within organizational information systems.' },
-        { id: 'SI.L2-3.14.3', level: 2, domain: 'System and Information Integrity', text: 'Monitor system security alerts and advisories and take action in response.' },
-        { id: 'SI.L1-3.14.4', level: 1, domain: 'System and Information Integrity', text: 'Update malicious code protection mechanisms when new releases are available.' },
-        { id: 'SI.L1-3.14.5', level: 1, domain: 'System and Information Integrity', text: 'Perform periodic scans of the information system and real-time scans of files from external sources as files are downloaded, opened, or executed.' },
-        { id: 'SI.L2-3.14.6', level: 2, domain: 'System and Information Integrity', text: 'Monitor organizational systems, including inbound and outbound communications traffic, to detect attacks and indicators of potential attacks.' },
-        { id: 'SI.L2-3.14.7', level: 2, domain: 'System and Information Integrity', text: 'Identify unauthorized use of organizational systems.' }
-    ];
+    // ===== 3.13 SYSTEM AND COMMUNICATIONS PROTECTION (SC) — 16 Requirements =====
+    { id:'SC.L1-3.13.1', level:1, domain:'SC', nist:'3.13.1', weight:5, text:'Monitor, control, and protect communications (i.e., information transmitted or received by organizational systems) at the external boundaries and key internal boundaries of organizational systems.' },
+    { id:'SC.L2-3.13.2', level:2, domain:'SC', nist:'3.13.2', weight:3, text:'Employ architectural designs, software development techniques, and systems engineering principles that promote effective information security within organizational systems.' },
+    { id:'SC.L2-3.13.3', level:2, domain:'SC', nist:'3.13.3', weight:3, text:'Separate user functionality from system management functionality.' },
+    { id:'SC.L2-3.13.4', level:2, domain:'SC', nist:'3.13.4', weight:3, text:'Prevent unauthorized and unintended information transfer via shared system resources.' },
+    { id:'SC.L1-3.13.5', level:1, domain:'SC', nist:'3.13.5', weight:5, text:'Implement subnetworks for publicly accessible system components that are physically or logically separated from internal networks.' },
+    { id:'SC.L2-3.13.6', level:2, domain:'SC', nist:'3.13.6', weight:5, text:'Deny network communications traffic by default and allow network communications traffic by exception (i.e., deny all, permit by exception).' },
+    { id:'SC.L2-3.13.7', level:2, domain:'SC', nist:'3.13.7', weight:3, text:'Prevent remote devices from simultaneously establishing non-remote connections with organizational systems and communicating via some other connection to resources in external networks (i.e., split tunneling).' },
+    { id:'SC.L2-3.13.8', level:2, domain:'SC', nist:'3.13.8', weight:5, text:'Implement cryptographic mechanisms to prevent unauthorized disclosure of CUI during transmission unless otherwise protected by alternative physical safeguards.' },
+    { id:'SC.L2-3.13.9', level:2, domain:'SC', nist:'3.13.9', weight:1, text:'Terminate network connections associated with communications sessions at the end of the sessions or after a defined period of inactivity.' },
+    { id:'SC.L2-3.13.10', level:2, domain:'SC', nist:'3.13.10', weight:3, text:'Establish and manage cryptographic keys for cryptography employed in organizational systems.' },
+    { id:'SC.L2-3.13.11', level:2, domain:'SC', nist:'3.13.11', weight:5, text:'Employ FIPS-validated cryptography when used to protect the confidentiality of CUI.' },
+    { id:'SC.L2-3.13.12', level:2, domain:'SC', nist:'3.13.12', weight:1, text:'Prohibit remote activation of collaborative computing devices and provide indication of devices in use to users present at the device.' },
+    { id:'SC.L2-3.13.13', level:2, domain:'SC', nist:'3.13.13', weight:1, text:'Control and monitor the use of mobile code.' },
+    { id:'SC.L2-3.13.14', level:2, domain:'SC', nist:'3.13.14', weight:1, text:'Control and monitor the use of Voice over Internet Protocol (VoIP) technologies.' },
+    { id:'SC.L2-3.13.15', level:2, domain:'SC', nist:'3.13.15', weight:5, text:'Protect the authenticity of communications sessions.' },
+    { id:'SC.L2-3.13.16', level:2, domain:'SC', nist:'3.13.16', weight:5, text:'Protect the confidentiality of CUI at rest.' },
 
-    // --- INITIALIZATION ---
-    document.addEventListener('DOMContentLoaded', () => {
-        loadSystemInfo();
-        renderChecklist();
+    // ===== 3.14 SYSTEM AND INFORMATION INTEGRITY (SI) — 7 Requirements =====
+    { id:'SI.L1-3.14.1', level:1, domain:'SI', nist:'3.14.1', weight:5, text:'Identify, report, and correct information and information system flaws in a timely manner.' },
+    { id:'SI.L1-3.14.2', level:1, domain:'SI', nist:'3.14.2', weight:5, text:'Provide protection from malicious code at appropriate locations within organizational information systems.' },
+    { id:'SI.L2-3.14.3', level:2, domain:'SI', nist:'3.14.3', weight:3, text:'Monitor system security alerts and advisories and take action in response.' },
+    { id:'SI.L1-3.14.4', level:1, domain:'SI', nist:'3.14.4', weight:3, text:'Update malicious code protection mechanisms when new releases are available.' },
+    { id:'SI.L1-3.14.5', level:1, domain:'SI', nist:'3.14.5', weight:3, text:'Perform periodic scans of the information system and real-time scans of files from external sources as files are downloaded, opened, or executed.' },
+    { id:'SI.L2-3.14.6', level:2, domain:'SI', nist:'3.14.6', weight:5, text:'Monitor organizational systems, including inbound and outbound communications traffic, to detect attacks and indicators of potential attacks.' },
+    { id:'SI.L2-3.14.7', level:2, domain:'SI', nist:'3.14.7', weight:5, text:'Identify unauthorized use of organizational systems.' }
+];
+
+// ============================================================
+// APPLICATION STATE
+// ============================================================
+let state = {
+    targetLevel: 2,
+    orgInfo: {},
+    responses: {},    // controlId -> 'met' | 'partial' | 'not-met' | 'na'
+    notes: {},        // controlId -> string
+    currentPage: 'intro'
+};
+
+// ============================================================
+// INITIALIZATION
+// ============================================================
+document.addEventListener('DOMContentLoaded', () => {
+    loadFromStorage();
+    buildDomainNav();
+    buildDomainPages();
+    setDateDefault();
+    restoreOrgInfo();
+    showPage(state.currentPage);
+    autoSaveSetup();
+});
+
+function setDateDefault() {
+    const d = document.getElementById('assessDate');
+    if (!d.value) d.value = new Date().toISOString().split('T')[0];
+}
+
+function autoSaveSetup() {
+    setInterval(() => saveToStorage(), 30000);
+}
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+function buildDomainNav() {
+    const list = document.getElementById('domain-nav-list');
+    list.innerHTML = '';
+    DOMAINS.forEach((d, i) => {
+        const controls = CONTROLS.filter(c => c.domain === d.abbr);
+        const assessed = controls.filter(c => state.responses[c.id]).length;
+        const total = controls.length;
+        let iconClass = 'domain';
+        if (assessed === total && total > 0) iconClass += ' complete';
+        else if (assessed > 0) iconClass += ' partial';
+
+        const item = document.createElement('div');
+        item.className = 'nav-item';
+        item.setAttribute('data-page', 'domain-' + i);
+        item.onclick = () => showPage('domain-' + i);
+        item.innerHTML = `
+            <div class="nav-icon ${iconClass}" id="nav-icon-${i}">${d.abbr}</div>
+            <div class="nav-label">${d.name}<small>NIST ${d.nist}</small></div>
+            <div class="nav-count" id="nav-count-${i}">${assessed}/${total}</div>
+        `;
+        list.appendChild(item);
+    });
+}
+
+function updateNavIndicators() {
+    DOMAINS.forEach((d, i) => {
+        const controls = CONTROLS.filter(c => c.domain === d.abbr);
+        const assessed = controls.filter(c => state.responses[c.id]).length;
+        const total = controls.length;
+
+        const icon = document.getElementById('nav-icon-' + i);
+        if (icon) {
+            icon.className = 'nav-icon domain';
+            if (assessed === total && total > 0) icon.classList.add('complete');
+            else if (assessed > 0) icon.classList.add('partial');
+        }
+
+        const count = document.getElementById('nav-count-' + i);
+        if (count) count.textContent = assessed + '/' + total;
+    });
+}
+
+function showPage(pageId) {
+    state.currentPage = pageId;
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+
+    const target = document.getElementById('page-' + pageId);
+    if (target) {
+        target.classList.add('active');
+        document.getElementById('main-content').scrollTop = 0;
+    }
+
+    const navItem = document.querySelector(`[data-page="${pageId}"]`);
+    if (navItem) navItem.classList.add('active');
+
+    if (pageId === 'results') renderResults();
+
+    // Close mobile nav
+    document.getElementById('sidebar').classList.remove('mobile-open');
+}
+
+function toggleMobileNav() {
+    document.getElementById('sidebar').classList.toggle('mobile-open');
+}
+
+// ============================================================
+// BUILD DOMAIN ASSESSMENT PAGES
+// ============================================================
+function buildDomainPages() {
+    const container = document.getElementById('domain-pages-container');
+    container.innerHTML = '';
+
+    DOMAINS.forEach((domain, domIdx) => {
+        const controls = CONTROLS.filter(c => c.domain === domain.abbr);
+        const prevPage = domIdx === 0 ? 'intro' : 'domain-' + (domIdx - 1);
+        const nextPage = domIdx === DOMAINS.length - 1 ? 'results' : 'domain-' + (domIdx + 1);
+
+        let html = `<div class="page" id="page-domain-${domIdx}"><div class="domain-page">`;
+
+        // Domain header
+        html += `
+            <div class="domain-header">
+                <div class="domain-header-top">
+                    <div class="domain-title">
+                        <span class="domain-badge">${domain.abbr}</span>
+                        <h2>${domain.name}</h2>
+                    </div>
+                    <span style="font-size:13px;color:var(--gray-500);">NIST SP 800-171 &sect;${domain.nist} &mdash; ${controls.length} requirement${controls.length!==1?'s':''}</span>
+                </div>
+                <div class="domain-progress-bar">
+                    <div class="domain-progress-fill" id="dprog-fill-${domIdx}" style="width:0%"></div>
+                </div>
+                <div class="domain-progress-text" id="dprog-text-${domIdx}">0 / ${controls.length} assessed</div>
+            </div>
+        `;
+
+        // Practice cards
+        controls.forEach(ctrl => {
+            const resp = state.responses[ctrl.id] || '';
+            const cardClass = resp === 'met' ? 'met' : resp === 'partial' ? 'partial' : resp === 'not-met' ? 'not-met' : 'not-assessed';
+            const levelClass = ctrl.level === 1 ? 'badge-l1' : 'badge-l2';
+            const levelLabel = ctrl.level === 1 ? 'L1' : 'L2';
+
+            html += `
+                <div class="practice-card ${cardClass}" id="card-${ctrl.id}">
+                    <div class="practice-header">
+                        <span class="practice-id">${ctrl.id}</span>
+                        <span class="practice-level-badge ${levelClass}">${levelLabel}</span>
+                        <span class="practice-text">${ctrl.text}</span>
+                        <span class="practice-weight" title="SPRS weight">${ctrl.weight} pt</span>
+                    </div>
+                    <div class="practice-response">
+                        <label>Status:</label>
+                        <button class="response-btn ${resp==='met'?'selected-met':''}" onclick="setResponse('${ctrl.id}','met',${domIdx})">Met</button>
+                        <button class="response-btn ${resp==='partial'?'selected-partial':''}" onclick="setResponse('${ctrl.id}','partial',${domIdx})">Partially Met</button>
+                        <button class="response-btn ${resp==='not-met'?'selected-not-met':''}" onclick="setResponse('${ctrl.id}','not-met',${domIdx})">Not Met</button>
+                        <button class="response-btn ${resp==='na'?'selected-na':''}" onclick="setResponse('${ctrl.id}','na',${domIdx})">N/A</button>
+                    </div>
+                    <div class="practice-notes-toggle">
+                        <button onclick="toggleNotes('${ctrl.id}')">+ Add implementation notes</button>
+                    </div>
+                    <div class="practice-notes" id="notes-${ctrl.id}" ${state.notes[ctrl.id]?'class="visible"':''}>
+                        <textarea placeholder="Describe how this control is implemented..." onchange="saveNote('${ctrl.id}',this.value)">${state.notes[ctrl.id]||''}</textarea>
+                    </div>
+                </div>
+            `;
+        });
+
+        // Nav arrows
+        html += `
+            <div class="domain-nav">
+                <button class="btn btn-secondary" onclick="showPage('${prevPage}')">&larr; ${domIdx === 0 ? 'Introduction' : DOMAINS[domIdx-1].name}</button>
+                <button class="btn btn-primary" onclick="showPage('${nextPage}')">${domIdx === DOMAINS.length-1 ? 'View Results' : DOMAINS[domIdx+1].name} &rarr;</button>
+            </div>
+        `;
+
+        html += '</div></div>';
+        container.insertAdjacentHTML('beforeend', html);
+    });
+}
+
+// ============================================================
+// RESPONSE HANDLING
+// ============================================================
+function setResponse(controlId, value, domIdx) {
+    if (state.responses[controlId] === value) {
+        delete state.responses[controlId];
+    } else {
+        state.responses[controlId] = value;
+    }
+
+    updateCardUI(controlId);
+    updateDomainProgress(domIdx);
+    updateNavIndicators();
+    saveToStorage();
+}
+
+function updateCardUI(controlId) {
+    const card = document.getElementById('card-' + controlId);
+    if (!card) return;
+    const resp = state.responses[controlId] || '';
+    card.className = 'practice-card ' + (resp === 'met' ? 'met' : resp === 'partial' ? 'partial' : resp === 'not-met' ? 'not-met' : 'not-assessed');
+
+    const buttons = card.querySelectorAll('.response-btn');
+    const vals = ['met', 'partial', 'not-met', 'na'];
+    const classes = ['selected-met', 'selected-partial', 'selected-not-met', 'selected-na'];
+    buttons.forEach((btn, i) => {
+        btn.className = 'response-btn' + (resp === vals[i] ? ' ' + classes[i] : '');
+    });
+}
+
+function updateDomainProgress(domIdx) {
+    const domain = DOMAINS[domIdx];
+    const controls = CONTROLS.filter(c => c.domain === domain.abbr);
+    const assessed = controls.filter(c => state.responses[c.id]).length;
+    const pct = controls.length > 0 ? Math.round((assessed / controls.length) * 100) : 0;
+    const fill = document.getElementById('dprog-fill-' + domIdx);
+    const text = document.getElementById('dprog-text-' + domIdx);
+    if (fill) fill.style.width = pct + '%';
+    if (text) text.textContent = assessed + ' / ' + controls.length + ' assessed (' + pct + '%)';
+}
+
+function toggleNotes(controlId) {
+    const el = document.getElementById('notes-' + controlId);
+    if (el) el.classList.toggle('visible');
+}
+
+function saveNote(controlId, value) {
+    if (value.trim()) {
+        state.notes[controlId] = value;
+    } else {
+        delete state.notes[controlId];
+    }
+    saveToStorage();
+}
+
+// ============================================================
+// TARGET LEVEL
+// ============================================================
+function selectLevel(level) {
+    state.targetLevel = level;
+    document.getElementById('level-opt-1').className = 'level-option' + (level === 1 ? ' selected' : '');
+    document.getElementById('level-opt-2').className = 'level-option' + (level === 2 ? ' selected' : '');
+    saveToStorage();
+}
+
+// ============================================================
+// RESULTS RENDERING
+// ============================================================
+function renderResults() {
+    const all = CONTROLS;
+    let metCount = 0, partialCount = 0, notMetCount = 0, naCount = 0, unassessed = 0;
+    let sprsDeduction = 0;
+
+    all.forEach(c => {
+        const r = state.responses[c.id];
+        if (r === 'met') metCount++;
+        else if (r === 'partial') { partialCount++; sprsDeduction += c.weight; }
+        else if (r === 'not-met') { notMetCount++; sprsDeduction += c.weight; }
+        else if (r === 'na') naCount++;
+        else unassessed++;
     });
 
-    // --- TAB LOGIC ---
-    function switchTab(tabId) {
-        // Hide all tabs and remove active class from buttons
-        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-        
-        // Show selected tab and highlight button
-        document.getElementById(tabId).classList.add('active');
-        event.currentTarget.classList.add('active');
-    }
+    const sprs = 110 - sprsDeduction;
 
-    // --- SYSTEM INFO LOGIC ---
-    function saveSystemInfo() {
-        const data = {
-            name: document.getElementById('systemName').value,
-            description: document.getElementById('systemDescription').value
-        };
-        // Convert the data object to a JSON string and save it to localStorage
-        localStorage.setItem('cmmc_system_info', JSON.stringify(data));
-        
-        const msg = document.getElementById('save-msg');
-        msg.style.display = 'inline';
-        setTimeout(() => msg.style.display = 'none', 2000); // Hide message after 2 seconds
-    }
+    document.getElementById('sprs-score').textContent = sprs;
+    document.getElementById('met-count').textContent = metCount;
+    document.getElementById('partial-count').textContent = partialCount;
+    document.getElementById('not-met-count').textContent = notMetCount;
 
-    function loadSystemInfo() {
-        const savedData = localStorage.getItem('cmmc_system_info');
-        if (savedData) {
-            const data = JSON.parse(savedData); // Convert string back to an object
-            document.getElementById('systemName').value = data.name || '';
-            document.getElementById('systemDescription').value = data.description || '';
+    // Level 1 compliance
+    const l1Controls = all.filter(c => c.level === 1);
+    const l1Met = l1Controls.filter(c => state.responses[c.id] === 'met').length;
+    const l1Pct = l1Controls.length > 0 ? Math.round((l1Met / l1Controls.length) * 100) : 0;
+    document.getElementById('l1-meter').style.width = l1Pct + '%';
+    document.getElementById('l1-pct').textContent = l1Met + ' / ' + l1Controls.length + ' met';
+    const l1Pass = l1Met === l1Controls.length;
+    document.getElementById('l1-status').textContent = l1Pass ? 'Achieved' : 'Not Achieved';
+    document.getElementById('l1-status').className = 'level-status ' + (l1Pass ? 'pass' : 'fail');
+
+    // Level 2 compliance
+    const l2Met = metCount;
+    const l2Pct = all.length > 0 ? Math.round((l2Met / all.length) * 100) : 0;
+    document.getElementById('l2-meter').style.width = l2Pct + '%';
+    document.getElementById('l2-pct').textContent = l2Met + ' / ' + all.length + ' met';
+    const l2Pass = l2Met === all.length;
+    document.getElementById('l2-status').textContent = l2Pass ? 'Achieved' : 'Not Achieved';
+    document.getElementById('l2-status').className = 'level-status ' + (l2Pass ? 'pass' : 'fail');
+
+    // Domain bar chart
+    const barsDiv = document.getElementById('domain-bars');
+    barsDiv.innerHTML = '';
+    DOMAINS.forEach(d => {
+        const dc = CONTROLS.filter(c => c.domain === d.abbr);
+        const total = dc.length;
+        const dMet = dc.filter(c => state.responses[c.id] === 'met').length;
+        const dPartial = dc.filter(c => state.responses[c.id] === 'partial').length;
+        const dNotMet = dc.filter(c => state.responses[c.id] === 'not-met').length;
+        const dNA = dc.filter(c => state.responses[c.id] === 'na').length;
+        const dUn = total - dMet - dPartial - dNotMet - dNA;
+
+        const pct = (v) => total > 0 ? (v / total * 100).toFixed(1) : 0;
+
+        barsDiv.innerHTML += `
+            <div class="stacked-bar-row">
+                <div class="bar-label">${d.abbr}</div>
+                <div class="bar-track">
+                    ${dMet > 0 ? `<div class="bar-segment met" style="width:${pct(dMet)}%">${dMet}</div>` : ''}
+                    ${dPartial > 0 ? `<div class="bar-segment partial" style="width:${pct(dPartial)}%">${dPartial}</div>` : ''}
+                    ${dNotMet > 0 ? `<div class="bar-segment not-met" style="width:${pct(dNotMet)}%">${dNotMet}</div>` : ''}
+                    ${dNA > 0 ? `<div class="bar-segment na" style="width:${pct(dNA)}%">${dNA}</div>` : ''}
+                    ${dUn > 0 ? `<div class="bar-segment unassessed" style="width:${pct(dUn)}%">${dUn}</div>` : ''}
+                </div>
+                <div class="bar-count">${dMet}/${total}</div>
+            </div>
+        `;
+    });
+}
+
+// ============================================================
+// PERSISTENCE (localStorage)
+// ============================================================
+function saveToStorage() {
+    gatherOrgInfo();
+    localStorage.setItem('cmmc_assessment', JSON.stringify(state));
+}
+
+function loadFromStorage() {
+    const saved = localStorage.getItem('cmmc_assessment');
+    if (saved) {
+        try {
+            const parsed = JSON.parse(saved);
+            state = { ...state, ...parsed };
+        } catch(e) { /* ignore parse errors */ }
+    }
+}
+
+function gatherOrgInfo() {
+    state.orgInfo = {
+        orgName: (document.getElementById('orgName')?.value || ''),
+        assessorName: (document.getElementById('assessorName')?.value || ''),
+        cageCode: (document.getElementById('cageCode')?.value || ''),
+        assessDate: (document.getElementById('assessDate')?.value || ''),
+        systemName: (document.getElementById('systemName')?.value || ''),
+        systemBoundary: (document.getElementById('systemBoundary')?.value || '')
+    };
+}
+
+function restoreOrgInfo() {
+    const info = state.orgInfo || {};
+    if (info.orgName) document.getElementById('orgName').value = info.orgName;
+    if (info.assessorName) document.getElementById('assessorName').value = info.assessorName;
+    if (info.cageCode) document.getElementById('cageCode').value = info.cageCode;
+    if (info.assessDate) document.getElementById('assessDate').value = info.assessDate;
+    if (info.systemName) document.getElementById('systemName').value = info.systemName;
+    if (info.systemBoundary) document.getElementById('systemBoundary').value = info.systemBoundary;
+    if (state.targetLevel) selectLevel(state.targetLevel);
+
+    // Restore domain progress
+    DOMAINS.forEach((d, i) => updateDomainProgress(i));
+}
+
+function buildAssessmentJSON() {
+    gatherOrgInfo();
+    return {
+        format: 'cmmc-assessment-v2',
+        savedDate: new Date().toISOString(),
+        targetLevel: state.targetLevel,
+        orgInfo: state.orgInfo,
+        responses: state.responses,
+        notes: state.notes,
+        currentPage: state.currentPage
+    };
+}
+
+function downloadJSON(data, filenamePrefix) {
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    const orgName = (state.orgInfo.orgName || 'cmmc').replace(/\s+/g, '_');
+    link.download = `${filenamePrefix}_${orgName}_${new Date().toISOString().split('T')[0]}.json`;
+    link.click();
+    URL.revokeObjectURL(link.href);
+}
+
+function saveAssessment() {
+    saveToStorage();
+    const data = buildAssessmentJSON();
+    downloadJSON(data, 'CMMC_Save');
+    showToast('Assessment saved as JSON');
+}
+
+// ============================================================
+// IMPORT / EXPORT
+// ============================================================
+function exportJSON() {
+    const data = buildAssessmentJSON();
+    downloadJSON(data, 'CMMC_Assessment');
+    showToast('Assessment exported as JSON');
+}
+
+function importJSON() {
+    document.getElementById('importFileInput').click();
+}
+
+function handleImport(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            const data = JSON.parse(e.target.result);
+            if (data.responses) state.responses = data.responses;
+            if (data.notes) state.notes = data.notes;
+            if (data.orgInfo) state.orgInfo = data.orgInfo;
+            if (data.targetLevel) state.targetLevel = data.targetLevel;
+            saveToStorage();
+            // Rebuild UI
+            restoreOrgInfo();
+            buildDomainPages();
+            updateNavIndicators();
+            showToast('Assessment imported successfully');
+        } catch(err) {
+            showToast('Error: Invalid JSON file');
         }
-    }
+    };
+    reader.readAsText(file);
+    event.target.value = '';
+}
 
-    // --- CHECKLIST LOGIC ---
-    function renderChecklist() {
-        const checklistDiv = document.getElementById('checklist');
-        checklistDiv.innerHTML = '';
+// ============================================================
+// SSP GENERATION
+// ============================================================
+function generateSSP() {
+    gatherOrgInfo();
+    const info = state.orgInfo;
+    let doc = '';
+    doc += '='.repeat(72) + '\n';
+    doc += '         SYSTEM SECURITY PLAN (SSP)\n';
+    doc += '         CMMC 2.0 Self-Assessment\n';
+    doc += '='.repeat(72) + '\n\n';
+    doc += `Organization:    ${info.orgName || 'Not Provided'}\n`;
+    doc += `CAGE Code:       ${info.cageCode || 'Not Provided'}\n`;
+    doc += `Assessor:        ${info.assessorName || 'Not Provided'}\n`;
+    doc += `Assessment Date: ${info.assessDate || 'Not Provided'}\n`;
+    doc += `System Name:     ${info.systemName || 'Not Provided'}\n`;
+    doc += `Target Level:    CMMC Level ${state.targetLevel}\n`;
+    doc += `Generated:       ${new Date().toLocaleString()}\n\n`;
 
-        const levelFilter = document.getElementById('levelFilter').value;
-        const savedControls = JSON.parse(localStorage.getItem('cmmc_controls_state')) || {};
+    doc += '-'.repeat(72) + '\n';
+    doc += 'SYSTEM ENVIRONMENT & BOUNDARY\n';
+    doc += '-'.repeat(72) + '\n';
+    doc += (info.systemBoundary || 'Not Provided') + '\n\n';
 
-        // Filter controls based on selected level
-        let filtered;
-        if (levelFilter === '1') {
-            filtered = controls.filter(c => c.level === 1);
-        } else {
-            // "all" and "2" both show all 110 (Level 2 includes all Level 1)
-            filtered = controls;
-        }
+    // SPRS Score
+    let sprsDeduction = 0;
+    CONTROLS.forEach(c => {
+        const r = state.responses[c.id];
+        if (r !== 'met' && r !== 'na') sprsDeduction += c.weight;
+    });
+    const sprs = 110 - sprsDeduction;
+    doc += '-'.repeat(72) + '\n';
+    doc += `SPRS SCORE: ${sprs} / 110\n`;
+    doc += '-'.repeat(72) + '\n\n';
 
-        // Group by domain
-        const grouped = {};
-        filtered.forEach(control => {
-            if (!grouped[control.domain]) grouped[control.domain] = [];
-            grouped[control.domain].push(control);
-        });
+    // Controls by domain
+    DOMAINS.forEach(domain => {
+        const controls = CONTROLS.filter(c => c.domain === domain.abbr);
+        doc += '\n' + '='.repeat(72) + '\n';
+        doc += `${domain.abbr} — ${domain.name.toUpperCase()} (${controls.length} requirements)\n`;
+        doc += '='.repeat(72) + '\n\n';
 
-        // Track progress
-        let total = filtered.length;
-        let checked = 0;
-
-        Object.entries(grouped).forEach(([domain, domainControls]) => {
-            const header = document.createElement('h3');
-            header.style.cssText = 'margin: 20px 0 8px; color: #102a43; border-bottom: 2px solid #1976d2; padding-bottom: 5px; font-size: 15px;';
-            const domainChecked = domainControls.filter(c => savedControls[c.id] === true).length;
-            header.textContent = `${domain} (${domainChecked}/${domainControls.length})`;
-            checklistDiv.appendChild(header);
-
-            domainControls.forEach(control => {
-                const itemDiv = document.createElement('div');
-                itemDiv.className = 'control-item';
-
-                const checkbox = document.createElement('input');
-                checkbox.type = 'checkbox';
-                checkbox.id = control.id;
-                checkbox.checked = savedControls[control.id] === true;
-                if (checkbox.checked) checked++;
-
-                checkbox.addEventListener('change', (e) => {
-                    const currentStates = JSON.parse(localStorage.getItem('cmmc_controls_state')) || {};
-                    currentStates[control.id] = e.target.checked;
-                    localStorage.setItem('cmmc_controls_state', JSON.stringify(currentStates));
-                    updateProgress();
-                });
-
-                const label = document.createElement('label');
-                label.htmlFor = control.id;
-                const levelBadge = control.level === 1
-                    ? '<span style="background:#1976d2;color:#fff;padding:1px 6px;border-radius:3px;font-size:11px;margin-left:6px;">L1</span>'
-                    : '<span style="background:#7b1fa2;color:#fff;padding:1px 6px;border-radius:3px;font-size:11px;margin-left:6px;">L2</span>';
-                label.innerHTML = `<strong>${control.id}</strong>${levelBadge}<br>${control.text}`;
-
-                itemDiv.appendChild(checkbox);
-                itemDiv.appendChild(label);
-                checklistDiv.appendChild(itemDiv);
-            });
-        });
-
-        // Update progress bar
-        const pct = total > 0 ? Math.round((checked / total) * 100) : 0;
-        document.getElementById('progress-fill').style.width = pct + '%';
-        document.getElementById('progress-text').textContent = `${checked} / ${total} controls (${pct}%)`;
-    }
-
-    function updateProgress() {
-        const levelFilter = document.getElementById('levelFilter').value;
-        const savedControls = JSON.parse(localStorage.getItem('cmmc_controls_state')) || {};
-        const filtered = levelFilter === '1' ? controls.filter(c => c.level === 1) : controls;
-        const checked = filtered.filter(c => savedControls[c.id] === true).length;
-        const pct = filtered.length > 0 ? Math.round((checked / filtered.length) * 100) : 0;
-        document.getElementById('progress-fill').style.width = pct + '%';
-        document.getElementById('progress-text').textContent = `${checked} / ${filtered.length} controls (${pct}%)`;
-    }
-
-    // --- DOCUMENT GENERATION LOGIC ---
-    function generateSSP() {
-        // 1. Gather all the data
-        const sysInfo = JSON.parse(localStorage.getItem('cmmc_system_info')) || {};
-        const controlStates = JSON.parse(localStorage.getItem('cmmc_controls_state')) || {};
-        
-        // 2. Format the document text
-        let docContent = "========================================\n";
-        docContent += "       SYSTEM SECURITY PLAN (SSP)       \n";
-        docContent += "========================================\n\n";
-        
-        docContent += `System Name: ${sysInfo.name || 'Not Provided'}\n`;
-        docContent += `Date Generated: ${new Date().toLocaleDateString()}\n\n`;
-        
-        docContent += "--- System Environment & Boundary ---\n";
-        docContent += `${sysInfo.description || 'Not Provided'}\n\n`;
-        
-        docContent += "--- Control Implementation Status ---\n\n";
-        const grouped = {};
         controls.forEach(c => {
-            if (!grouped[c.domain]) grouped[c.domain] = [];
-            grouped[c.domain].push(c);
-        });
-        Object.entries(grouped).forEach(([domain, domainControls]) => {
-            docContent += `\n=== ${domain.toUpperCase()} ===\n`;
-            domainControls.forEach(control => {
-                const status = controlStates[control.id] ? "[ IMPLEMENTED ]" : "[ NOT MET     ]";
-                const level = control.level === 1 ? "L1" : "L2";
-                docContent += `${status} [${level}] ${control.id}: ${control.text}\n`;
-            });
-        });
+            const r = state.responses[c.id];
+            let status;
+            if (r === 'met') status = '[ MET          ]';
+            else if (r === 'partial') status = '[ PARTIALLY MET ]';
+            else if (r === 'not-met') status = '[ NOT MET       ]';
+            else if (r === 'na') status = '[ N/A           ]';
+            else status = '[ NOT ASSESSED  ]';
 
-        // 3. Create a Blob (a file-like object in browser memory)
-        const blob = new Blob([docContent], { type: "text/plain" });
-        
-        // 4. Create a hidden download link and click it programmatically
-        const link = document.createElement("a");
-        link.href = URL.createObjectURL(blob);
-        link.download = "System_Security_Plan.txt";
-        link.click();
-        
-        // Clean up the URL object
-        URL.revokeObjectURL(link.href);
-    }
+            const lvl = c.level === 1 ? 'L1' : 'L2';
+            doc += `${status} [${lvl}] ${c.id}\n`;
+            doc += `  ${c.text}\n`;
+            if (state.notes[c.id]) {
+                doc += `  Implementation Notes: ${state.notes[c.id]}\n`;
+            }
+            doc += '\n';
+        });
+    });
+
+    doc += '\n' + '='.repeat(72) + '\n';
+    doc += 'END OF SYSTEM SECURITY PLAN\n';
+    doc += '='.repeat(72) + '\n';
+
+    const blob = new Blob([doc], { type: 'text/plain' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    const orgName = (info.orgName || 'SSP').replace(/\s+/g, '_');
+    link.download = `SSP_${orgName}_${new Date().toISOString().split('T')[0]}.txt`;
+    link.click();
+    URL.revokeObjectURL(link.href);
+    showToast('System Security Plan generated');
+}
+
+// ============================================================
+// TOAST NOTIFICATIONS
+// ============================================================
+function showToast(msg) {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3000);
+}
 </script>
 
 </body>
