@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMMC 2.0 Self-Assessment Tool | Free NIST 800-171 Compliance & SPRS Scoring for Defense Contractors</title>
+    <meta name="description" content="Free CMMC 2.0 self-assessment tool with all 110 NIST 800-171 controls. Calculate your SPRS score, track Level 1 and Level 2 compliance by domain, and generate System Security Plans. Built for small DoD contractors.">
+    <meta name="keywords" content="CMMC compliance tool, CMMC 2.0 self-assessment, SSP builder, System Security Plan generator, NIST 800-171, defense contractor compliance, CMMC Level 1, CMMC Level 2, SPRS score calculator, C3PAO preparation, DFARS 252.204-7012, CUI protection, FCI safeguarding">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://cybersecurity-maturity-model-certification.com/index.html">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="CMMC 2.0 Self-Assessment Tool | Free SPRS Score Calculator">
+    <meta property="og:description" content="Free CMMC 2.0 self-assessment covering all 110 NIST 800-171 controls. Calculate SPRS scores, track compliance by domain, and generate SSPs for defense contracts.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cybersecurity-maturity-model-certification.com/index.html">
+    <meta property="og:image" content="https://cybersecurity-maturity-model-certification.com/images/cyber-lock.png">
+    <meta property="og:site_name" content="Raptor CMMC Prep">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="CMMC 2.0 Self-Assessment Tool | Free SPRS Score Calculator">
+    <meta name="twitter:description" content="Free CMMC 2.0 self-assessment covering all 110 NIST 800-171 controls. Calculate your SPRS score and track compliance.">
+    <meta name="twitter:image" content="https://cybersecurity-maturity-model-certification.com/images/cyber-lock.png">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "CMMC 2.0 Self-Assessment Tool",
+        "description": "Free CMMC 2.0 self-assessment tool with all 110 NIST 800-171 controls, SPRS score calculation, and SSP generation for defense contractors seeking Level 1 and Level 2 certification.",
+        "url": "https://cybersecurity-maturity-model-certification.com/index.html",
+        "applicationCategory": "SecurityApplication",
+        "operatingSystem": "Web Browser",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "provider": {
+            "@type": "Organization",
+            "name": "Raptor Cybersecurity"
+        }
+    }
+    </script>
+    <style>
+        :root {
+            --navy: #0a1628;
+            --navy-light: #132240;
+            --navy-mid: #1a2d4d;
+            --blue: #2563eb;
+            --blue-light: #3b82f6;
+            --blue-pale: #dbeafe;
+            --green: #16a34a;
+            --green-light: #4ade80;
+            --green-pale: #dcfce7;
+            --yellow: #ca8a04;
+            --yellow-pale: #fef9c3;
+            --red: #dc2626;
+            --red-pale: #fee2e2;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-400: #94a3b8;
+            --gray-500: #64748b;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1e293b;
+            --gray-900: #0f172a;
+            --sidebar-width: 280px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--gray-100);
+            color: var(--gray-800);
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* ===== TOP HEADER BAR ===== */
+        .top-bar {
+            background: var(--navy);
+            color: white;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 100;
+            border-bottom: 3px solid var(--blue);
+        }
+        .top-bar-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .top-bar-logo {
+            height: 32px;
+            width: auto;
+        }
+        .top-bar h1 {
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        .top-bar h1 span {
+            color: var(--blue-light);
+            font-weight: 400;
+            font-size: 14px;
+            margin-left: 8px;
+        }
+        .top-bar-actions {
+            display: flex;
+            gap: 8px;
+        }
+        .top-bar-actions button {
+            background: var(--navy-light);
+            color: white;
+            border: 1px solid var(--navy-mid);
+            padding: 6px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.2s;
+        }
+        .top-bar-actions button:hover {
+            background: var(--navy-mid);
+        }
+
+        /* ===== MAIN LAYOUT ===== */
+        .app-layout {
+            display: flex;
+            height: calc(100vh - 56px);
+        }
+
+        /* ===== LEFT SIDEBAR NAVIGATION ===== */
+        .sidebar {
+            width: var(--sidebar-width);
+            min-width: var(--sidebar-width);
+            background: var(--navy);
+            color: white;
+            overflow-y: auto;
+            border-right: 1px solid var(--navy-mid);
+        }
+        .sidebar::-webkit-scrollbar { width: 6px; }
+        .sidebar::-webkit-scrollbar-track { background: var(--navy); }
+        .sidebar::-webkit-scrollbar-thumb { background: var(--navy-mid); border-radius: 3px; }
+
+        .sidebar-section {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--navy-mid);
+        }
+        .sidebar-section-title {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--gray-400);
+            padding: 0 16px 8px;
+            font-weight: 600;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 16px;
+            cursor: pointer;
+            transition: background 0.15s;
+            gap: 10px;
+            font-size: 13px;
+            color: var(--gray-300);
+            border-left: 3px solid transparent;
+        }
+        .nav-item:hover {
+            background: var(--navy-light);
+            color: white;
+        }
+        .nav-item.active {
+            background: var(--navy-light);
+            color: white;
+            border-left-color: var(--blue);
+        }
+
+        .nav-item .nav-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .nav-icon.intro { background: var(--blue); color: white; }
+        .nav-icon.results { background: var(--green); color: white; }
+        .nav-icon.domain {
+            background: var(--navy-mid);
+            color: var(--gray-300);
+            border: 2px solid var(--gray-500);
+            font-size: 10px;
+        }
+        .nav-icon.domain.complete {
+            background: var(--green);
+            border-color: var(--green);
+            color: white;
+        }
+        .nav-icon.domain.partial {
+            background: var(--navy-mid);
+            border-color: var(--yellow);
+            color: var(--yellow);
+        }
+
+        .nav-item .nav-label {
+            flex: 1;
+            line-height: 1.3;
+        }
+        .nav-item .nav-label small {
+            display: block;
+            font-size: 11px;
+            color: var(--gray-500);
+            margin-top: 1px;
+        }
+        .nav-item .nav-count {
+            font-size: 11px;
+            color: var(--gray-500);
+            white-space: nowrap;
+        }
+
+        /* ===== MAIN CONTENT AREA ===== */
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0;
+            background: var(--gray-50);
+        }
+
+        .page { display: none; }
+        .page.active { display: block; }
+
+        /* ===== INTRODUCTION PAGE ===== */
+        .intro-page {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 40px 32px;
+        }
+        .intro-page h2 {
+            font-size: 28px;
+            color: var(--navy);
+            margin-bottom: 8px;
+        }
+        .intro-page .subtitle {
+            color: var(--gray-500);
+            font-size: 15px;
+            margin-bottom: 32px;
+        }
+
+        .info-card {
+            background: white;
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+        .info-card h3 {
+            font-size: 16px;
+            color: var(--navy);
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-group.full { grid-column: 1 / -1; }
+        .form-group label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--gray-600);
+            margin-bottom: 4px;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            padding: 8px 12px;
+            border: 1px solid var(--gray-300);
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: inherit;
+            color: var(--gray-800);
+            transition: border-color 0.2s;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .level-selector {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        .level-option {
+            flex: 1;
+            background: white;
+            border: 2px solid var(--gray-200);
+            border-radius: 8px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+        .level-option:hover { border-color: var(--blue-light); }
+        .level-option.selected {
+            border-color: var(--blue);
+            background: var(--blue-pale);
+        }
+        .level-option h4 {
+            font-size: 16px;
+            color: var(--navy);
+            margin-bottom: 4px;
+        }
+        .level-option p {
+            font-size: 12px;
+            color: var(--gray-500);
+        }
+        .level-option .practice-count {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--blue);
+            margin: 8px 0;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+        .btn-primary { background: var(--blue); color: white; }
+        .btn-primary:hover { background: #1d4ed8; }
+        .btn-secondary { background: white; color: var(--gray-700); border: 1px solid var(--gray-300); }
+        .btn-secondary:hover { background: var(--gray-100); }
+        .btn-success { background: var(--green); color: white; }
+        .btn-success:hover { background: #15803d; }
+
+        /* ===== DOMAIN ASSESSMENT PAGE ===== */
+        .domain-page {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 32px;
+        }
+
+        .domain-header {
+            background: white;
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        .domain-header-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+        .domain-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .domain-badge {
+            background: var(--navy);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .domain-header h2 {
+            font-size: 22px;
+            color: var(--navy);
+        }
+        .domain-progress-bar {
+            height: 8px;
+            background: var(--gray-200);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .domain-progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.4s ease;
+            background: linear-gradient(90deg, var(--blue), var(--blue-light));
+        }
+        .domain-progress-text {
+            font-size: 12px;
+            color: var(--gray-500);
+            margin-top: 4px;
+            text-align: right;
+        }
+
+        /* Practice Cards */
+        .practice-card {
+            background: white;
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            transition: border-color 0.2s;
+        }
+        .practice-card:hover { border-color: var(--gray-300); }
+        .practice-card.met { border-left: 4px solid var(--green); }
+        .practice-card.partial { border-left: 4px solid var(--yellow); }
+        .practice-card.not-met { border-left: 4px solid var(--red); }
+        .practice-card.not-assessed { border-left: 4px solid var(--gray-300); }
+
+        .practice-header {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            gap: 12px;
+        }
+        .practice-id {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--navy);
+            white-space: nowrap;
+        }
+        .practice-level-badge {
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 11px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+        .badge-l1 { background: var(--blue); color: white; }
+        .badge-l2 { background: #7c3aed; color: white; }
+        .practice-text {
+            flex: 1;
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--gray-700);
+        }
+        .practice-weight {
+            font-size: 11px;
+            color: var(--gray-400);
+            white-space: nowrap;
+        }
+
+        .practice-response {
+            display: flex;
+            align-items: center;
+            padding: 0 20px 16px;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .practice-response label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--gray-500);
+            margin-right: 8px;
+        }
+
+        .response-btn {
+            padding: 6px 14px;
+            border: 1px solid var(--gray-300);
+            border-radius: 4px;
+            background: white;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--gray-600);
+            transition: all 0.15s;
+        }
+        .response-btn:hover { background: var(--gray-100); }
+        .response-btn.selected-met {
+            background: var(--green-pale);
+            border-color: var(--green);
+            color: var(--green);
+        }
+        .response-btn.selected-partial {
+            background: var(--yellow-pale);
+            border-color: var(--yellow);
+            color: var(--yellow);
+        }
+        .response-btn.selected-not-met {
+            background: var(--red-pale);
+            border-color: var(--red);
+            color: var(--red);
+        }
+        .response-btn.selected-na {
+            background: var(--gray-100);
+            border-color: var(--gray-400);
+            color: var(--gray-500);
+        }
+
+        .practice-notes-toggle {
+            padding: 0 20px 12px;
+        }
+        .practice-notes-toggle button {
+            background: none;
+            border: none;
+            color: var(--blue);
+            font-size: 12px;
+            cursor: pointer;
+        }
+        .practice-notes {
+            display: none;
+            padding: 0 20px 16px;
+        }
+        .practice-notes.visible { display: block; }
+        .practice-notes textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid var(--gray-300);
+            border-radius: 4px;
+            font-size: 13px;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        /* Domain navigation arrows */
+        .domain-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        /* ===== RESULTS PAGE ===== */
+        .results-page {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 32px;
+        }
+        .results-page h2 {
+            font-size: 28px;
+            color: var(--navy);
+            margin-bottom: 24px;
+        }
+
+        .score-cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        .score-card {
+            background: white;
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+        .score-card .score-value {
+            font-size: 36px;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+        .score-card .score-label {
+            font-size: 12px;
+            color: var(--gray-500);
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .score-card.sprs .score-value { color: var(--blue); }
+        .score-card.met-count .score-value { color: var(--green); }
+        .score-card.partial-count .score-value { color: var(--yellow); }
+        .score-card.not-met-count .score-value { color: var(--red); }
+
+        /* Bar chart */
+        .chart-container {
+            background: white;
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        .chart-container h3 {
+            font-size: 16px;
+            color: var(--navy);
+            margin-bottom: 4px;
+        }
+        .chart-subtitle {
+            font-size: 12px;
+            color: var(--gray-500);
+            margin-bottom: 16px;
+        }
+        .chart-legend {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 16px;
+            font-size: 12px;
+        }
+        .chart-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .legend-swatch {
+            width: 14px;
+            height: 14px;
+            border-radius: 2px;
+        }
+
+        .stacked-bar-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .bar-label {
+            width: 40px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--gray-600);
+            text-align: right;
+            padding-right: 12px;
+            flex-shrink: 0;
+        }
+        .bar-track {
+            flex: 1;
+            height: 28px;
+            background: var(--gray-100);
+            border-radius: 4px;
+            overflow: hidden;
+            display: flex;
+        }
+        .bar-segment {
+            height: 100%;
+            transition: width 0.4s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 700;
+            color: white;
+            min-width: 0;
+        }
+        .bar-segment.met { background: var(--green); }
+        .bar-segment.partial { background: var(--yellow); }
+        .bar-segment.not-met { background: var(--red); }
+        .bar-segment.na { background: var(--gray-300); }
+        .bar-segment.unassessed { background: var(--gray-200); color: var(--gray-500); }
+        .bar-count {
+            width: 60px;
+            font-size: 11px;
+            color: var(--gray-500);
+            text-align: left;
+            padding-left: 8px;
+            flex-shrink: 0;
+        }
+
+        /* Level compliance cards */
+        .level-compliance {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .level-card {
+            background: white;
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            padding: 24px;
+        }
+        .level-card h3 { margin-bottom: 12px; color: var(--navy); }
+        .level-meter {
+            height: 12px;
+            background: var(--gray-200);
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        .level-meter-fill {
+            height: 100%;
+            border-radius: 6px;
+            transition: width 0.4s;
+        }
+        .level-meter-fill.l1 { background: var(--blue); }
+        .level-meter-fill.l2 { background: #7c3aed; }
+        .level-status {
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .level-status.pass { color: var(--green); }
+        .level-status.fail { color: var(--red); }
+
+        /* ===== TOAST NOTIFICATION ===== */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--navy);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        .toast.show {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            animation: slideUp 0.3s ease;
+        }
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .sidebar { display: none; }
+            .mobile-nav-toggle { display: block !important; }
+            .score-cards { grid-template-columns: repeat(2, 1fr); }
+            .level-compliance { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+            .intro-page, .domain-page, .results-page { padding: 20px 16px; }
+        }
+
+        .mobile-nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 4px 8px;
+        }
+        .sidebar.mobile-open {
+            display: block;
+            position: fixed;
+            top: 56px;
+            left: 0;
+            bottom: 0;
+            z-index: 50;
+        }
+
+        /* Print styles */
+        @media print {
+            .top-bar, .sidebar, .domain-nav, .practice-response, .top-bar-actions { display: none !important; }
+            .main-content { overflow: visible !important; }
+            .app-layout { display: block !important; }
+            body { overflow: visible !important; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== TOP HEADER ===== -->
+<div class="top-bar">
+    <div class="top-bar-left">
+        <button class="mobile-nav-toggle" onclick="toggleMobileNav()">&#9776;</button>
+        <img src="images/raptor-logo-new.png" alt="Raptor Cybersecurity" class="top-bar-logo">
+        <h1>CMMC 2.0 Assessment <span>Self-Evaluation Tool</span></h1>
+    </div>
+    <div class="top-bar-actions">
+        <button onclick="importJSON()" title="Import from JSON file">&#128228; Import</button>
+        <button onclick="generateSSP()" title="Generate System Security Plan">&#128196; SSP</button>
+        <button onclick="resetAssessment()" title="Clear all data and start over" style="border-color:#dc2626;">&#128260; Reset</button>
+    </div>
+</div>
+
+<!-- ===== APP LAYOUT ===== -->
+<div class="app-layout">
+
+    <!-- LEFT SIDEBAR NAVIGATION -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-section">
+            <div class="sidebar-section-title">Getting Started</div>
+            <div class="nav-item active" onclick="showPage('intro')" data-page="intro">
+                <div class="nav-icon intro">&#9432;</div>
+                <div class="nav-label">Introduction<small>Organization & Scope</small></div>
+            </div>
+        </div>
+
+        <div class="sidebar-section">
+            <div class="sidebar-section-title">Assessment Domains (14)</div>
+            <div id="domain-nav-list"></div>
+        </div>
+
+        <div class="sidebar-section">
+            <div class="sidebar-section-title">Reporting</div>
+            <div class="nav-item" onclick="showPage('results')" data-page="results">
+                <div class="nav-icon results">&#9733;</div>
+                <div class="nav-label">Results & SPRS Score<small>Compliance Dashboard</small></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT AREA -->
+    <div class="main-content" id="main-content">
+
+        <!-- ===== INTRODUCTION PAGE ===== -->
+        <div class="page active" id="page-intro">
+            <div class="intro-page">
+                <h2>CMMC 2.0 Self-Assessment</h2>
+                <p class="subtitle">Evaluate your organization's compliance with CMMC Level 1 and Level 2 requirements based on NIST SP 800-171 Rev 2.</p>
+
+                <div class="info-card">
+                    <h3>Organization Information</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="orgName">Organization Name</label>
+                            <input type="text" id="orgName" placeholder="e.g., Acme Defense Corp" onchange="saveToStorage()">
+                        </div>
+                        <div class="form-group">
+                            <label for="assessorName">Assessor Name</label>
+                            <input type="text" id="assessorName" placeholder="e.g., Jane Smith" onchange="saveToStorage()">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cageCode">CAGE Code</label>
+                            <input type="text" id="cageCode" placeholder="e.g., 1ABC2" onchange="saveToStorage()">
+                        </div>
+                        <div class="form-group">
+                            <label for="assessDate">Assessment Date</label>
+                            <input type="date" id="assessDate" onchange="saveToStorage()">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group full">
+                            <label for="systemName">Information System Name</label>
+                            <input type="text" id="systemName" placeholder="e.g., Corporate IT Network" onchange="saveToStorage()">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group full">
+                            <label for="systemBoundary">System Environment & Boundary Description</label>
+                            <textarea id="systemBoundary" rows="3" placeholder="Describe the physical and logical boundaries of the system being assessed..." onchange="saveToStorage()"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>Target CMMC Level</h3>
+                    <div class="level-selector">
+                        <div class="level-option" onclick="selectLevel(1)" id="level-opt-1">
+                            <h4>Level 1 &mdash; Foundational</h4>
+                            <p>FCI Protection</p>
+                            <div class="practice-count">17</div>
+                            <p>Practices (FAR 52.204-21)</p>
+                        </div>
+                        <div class="level-option selected" onclick="selectLevel(2)" id="level-opt-2">
+                            <h4>Level 2 &mdash; Advanced</h4>
+                            <p>CUI Protection</p>
+                            <div class="practice-count">110</div>
+                            <p>Practices (NIST 800-171)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>How This Assessment Works</h3>
+                    <p style="font-size:14px; line-height:1.7; color:var(--gray-600);">
+                        This tool follows the design approach of the DOE's C2M2 assessment, adapted for CMMC 2.0 compliance. For each of the 110 NIST SP 800-171 security requirements, you will select an implementation status:
+                    </p>
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-top:16px;">
+                        <div style="display:flex;align-items:center;gap:10px;padding:10px;background:var(--green-pale);border-radius:6px;">
+                            <span style="font-weight:700;color:var(--green);">MET</span>
+                            <span style="font-size:13px;color:var(--gray-600);">Practice is fully implemented and operational</span>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:10px;padding:10px;background:var(--yellow-pale);border-radius:6px;">
+                            <span style="font-weight:700;color:var(--yellow);">PARTIALLY MET</span>
+                            <span style="font-size:13px;color:var(--gray-600);">Implemented with recognized gaps</span>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:10px;padding:10px;background:var(--red-pale);border-radius:6px;">
+                            <span style="font-weight:700;color:var(--red);">NOT MET</span>
+                            <span style="font-size:13px;color:var(--gray-600);">Practice is not implemented</span>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:10px;padding:10px;background:var(--gray-100);border-radius:6px;">
+                            <span style="font-weight:700;color:var(--gray-500);">N/A</span>
+                            <span style="font-size:13px;color:var(--gray-600);">Not applicable to this system</span>
+                        </div>
+                    </div>
+                    <p style="font-size:13px; line-height:1.6; color:var(--gray-500); margin-top:16px;">
+                        Your <strong>SPRS score</strong> (Supplier Performance Risk System) will be calculated automatically. SPRS scores range from 110 (all controls met) to -203 (no controls met). A score of 110 is required for full Level 2 compliance.
+                    </p>
+                </div>
+
+                <div style="text-align:right; margin-top:20px;">
+                    <button class="btn btn-primary" onclick="showPage('domain-0')">Begin Assessment &#8594;</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Domain pages will be injected here by JS -->
+        <div id="domain-pages-container"></div>
+
+        <!-- ===== RESULTS PAGE ===== -->
+        <div class="page" id="page-results">
+            <div class="results-page">
+                <h2>Assessment Results</h2>
+
+                <div class="score-cards" id="score-cards">
+                    <div class="score-card sprs">
+                        <div class="score-value" id="sprs-score">--</div>
+                        <div class="score-label">SPRS Score</div>
+                    </div>
+                    <div class="score-card met-count">
+                        <div class="score-value" id="met-count">0</div>
+                        <div class="score-label">Met</div>
+                    </div>
+                    <div class="score-card partial-count">
+                        <div class="score-value" id="partial-count">0</div>
+                        <div class="score-label">Partially Met</div>
+                    </div>
+                    <div class="score-card not-met-count">
+                        <div class="score-value" id="not-met-count">0</div>
+                        <div class="score-label">Not Met</div>
+                    </div>
+                </div>
+
+                <div class="level-compliance" id="level-compliance">
+                    <div class="level-card">
+                        <h3>Level 1 &mdash; Foundational (17 Practices)</h3>
+                        <div class="level-meter"><div class="level-meter-fill l1" id="l1-meter" style="width:0%"></div></div>
+                        <div style="display:flex;justify-content:space-between;align-items:center;">
+                            <span id="l1-pct" style="font-size:14px;color:var(--gray-600);">0 / 17 met</span>
+                            <span class="level-status" id="l1-status">Not Achieved</span>
+                        </div>
+                    </div>
+                    <div class="level-card">
+                        <h3>Level 2 &mdash; Advanced (110 Practices)</h3>
+                        <div class="level-meter"><div class="level-meter-fill l2" id="l2-meter" style="width:0%"></div></div>
+                        <div style="display:flex;justify-content:space-between;align-items:center;">
+                            <span id="l2-pct" style="font-size:14px;color:var(--gray-600);">0 / 110 met</span>
+                            <span class="level-status" id="l2-status">Not Achieved</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <h3>Implementation Status by Domain</h3>
+                    <p class="chart-subtitle">Stacked bar chart showing compliance distribution across all 14 CMMC domains</p>
+                    <div class="chart-legend">
+                        <div class="chart-legend-item"><div class="legend-swatch" style="background:var(--green)"></div> Met</div>
+                        <div class="chart-legend-item"><div class="legend-swatch" style="background:var(--yellow)"></div> Partially Met</div>
+                        <div class="chart-legend-item"><div class="legend-swatch" style="background:var(--red)"></div> Not Met</div>
+                        <div class="chart-legend-item"><div class="legend-swatch" style="background:var(--gray-300)"></div> N/A</div>
+                        <div class="chart-legend-item"><div class="legend-swatch" style="background:var(--gray-200)"></div> Not Assessed</div>
+                    </div>
+                    <div id="domain-bars"></div>
+                </div>
+
+                <div style="display:flex;gap:12px;justify-content:flex-end;margin-top:24px;">
+                    <button class="btn btn-secondary" onclick="window.print()">&#128424; Print Report</button>
+                    <button class="btn btn-success" onclick="generateSSP()">&#128196; Generate SSP</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Hidden file input for import -->
+<input type="file" id="importFileInput" accept=".json" style="display:none" onchange="handleImport(event)">
+
+<script src="app.js"></script>
+
+</body>
+</html>

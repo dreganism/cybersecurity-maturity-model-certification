@@ -783,12 +783,9 @@
         <h1>CMMC 2.0 Assessment <span>Self-Evaluation Tool</span></h1>
     </div>
     <div class="top-bar-actions">
-        <button onclick="saveAssessment()" title="Save as JSON file">&#128190; Save</button>
-        <button onclick="exportJSON()" title="Export as JSON file">&#128229; Export</button>
         <button onclick="importJSON()" title="Import from JSON file">&#128228; Import</button>
         <button onclick="generateSSP()" title="Generate System Security Plan">&#128196; SSP</button>
         <button onclick="resetAssessment()" title="Clear all data and start over" style="border-color:#dc2626;">&#128260; Reset</button>
-        <button onclick="logoutAssessment()" title="Save JSON then clear all data" style="border-color:#ca8a04;">&#128682; Logout</button>
     </div>
 </div>
 
@@ -833,33 +830,33 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="orgName">Organization Name</label>
-                            <input type="text" id="orgName" placeholder="e.g., Acme Defense Corp">
+                            <input type="text" id="orgName" placeholder="e.g., Acme Defense Corp" onchange="saveToStorage()">
                         </div>
                         <div class="form-group">
                             <label for="assessorName">Assessor Name</label>
-                            <input type="text" id="assessorName" placeholder="e.g., Jane Smith">
+                            <input type="text" id="assessorName" placeholder="e.g., Jane Smith" onchange="saveToStorage()">
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
                             <label for="cageCode">CAGE Code</label>
-                            <input type="text" id="cageCode" placeholder="e.g., 1ABC2">
+                            <input type="text" id="cageCode" placeholder="e.g., 1ABC2" onchange="saveToStorage()">
                         </div>
                         <div class="form-group">
                             <label for="assessDate">Assessment Date</label>
-                            <input type="date" id="assessDate">
+                            <input type="date" id="assessDate" onchange="saveToStorage()">
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group full">
                             <label for="systemName">Information System Name</label>
-                            <input type="text" id="systemName" placeholder="e.g., Corporate IT Network">
+                            <input type="text" id="systemName" placeholder="e.g., Corporate IT Network" onchange="saveToStorage()">
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group full">
                             <label for="systemBoundary">System Environment & Boundary Description</label>
-                            <textarea id="systemBoundary" rows="3" placeholder="Describe the physical and logical boundaries of the system being assessed..."></textarea>
+                            <textarea id="systemBoundary" rows="3" placeholder="Describe the physical and logical boundaries of the system being assessed..." onchange="saveToStorage()"></textarea>
                         </div>
                     </div>
                 </div>
@@ -977,7 +974,6 @@
 
                 <div style="display:flex;gap:12px;justify-content:flex-end;margin-top:24px;">
                     <button class="btn btn-secondary" onclick="window.print()">&#128424; Print Report</button>
-                    <button class="btn btn-secondary" onclick="exportJSON()">&#128229; Export JSON</button>
                     <button class="btn btn-success" onclick="generateSSP()">&#128196; Generate SSP</button>
                 </div>
             </div>
@@ -1233,6 +1229,8 @@ function updateNavIndicators() {
 }
 
 function showPage(pageId) {
+    // Capture intro form data before navigating away
+    if (state.currentPage === 'intro') gatherOrgInfo();
     state.currentPage = pageId;
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
@@ -1567,11 +1565,11 @@ function handleImport(event) {
             if (data.notes) state.notes = data.notes;
             if (data.orgInfo) state.orgInfo = data.orgInfo;
             if (data.targetLevel) state.targetLevel = data.targetLevel;
-            saveToStorage();
-            // Rebuild UI
+            // Restore UI first so DOM fields are populated before saveToStorage reads them
             restoreOrgInfo();
             buildDomainPages();
             updateNavIndicators();
+            saveToStorage();
             showToast('Assessment imported successfully');
         } catch(err) {
             showToast('Error: Invalid JSON file');
